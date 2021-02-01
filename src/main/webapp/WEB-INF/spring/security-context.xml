@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+		<context:component-scan base-package="com.spring.proj.login.user"/>
+
+<!-- view 관리 -->
+        <http auto-config="true" use-expressions="true">
+        
+        <!-- 권한 승인 순서 중요! 최상위 권한자(admin)로부터 게스트에게로(permitAll) -->
+        	<!-- 관리자가 로그인 했을 때 접근가능한 화면 패턴 -->
+      	    <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+      	    
+      	    <!-- 회원등록된 사용자가 로그인 했을 때 접근가능한 화면 패턴 -->
+            <intercept-url pattern="/user/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+      	    
+            <!-- 회원등록하지 '않은' 사용자가 접근가능한 화면 패턴 -->
+            <intercept-url pattern="/**" access="permitAll" />  
+
+			<!-- 로그인 하지 않은 사용자만 로그인페이지와 회원가입페이지에 접근 불가능 -->
+            <intercept-url pattern="/login" access="isAnonymous()"/>
+            <intercept-url pattern="/signUp" access="isAnonymous()"/>
+
+
+			<!-- spring security에서 제공해주는 로그인,로그아웃 기능은 post방식!
+				 get방식!으로 진행하기 위해 잠시 csrf를 disabled 해놓는다... -->
+			<csrf disabled="true"/>
+        	
+<!-- 
+login-page : 로그인 화면 url
+default-target-url : 로그인 성공시 호출할 url패턴
+(택1)authentication-failure-url : 로그인 실패시 호출할 url
+(택2)authentication-failure-handler-ref : 로그인 실패시 핸들링할 클래스
+ -->
+        	<form-login
+        		username-parameter="logId"
+        		password-parameter="logPwd"
+        		login-processing-url="/login"
+        		login-page="/secu/loginForm"
+        		authentication-success-handler-ref="userLoginSuccessHandler"
+        		authentication-failure-handler-ref="userLoginFailHandler"
+        	/>
+        <!-- 중복 로그인 방지 -->	
+        	<session-management invalid-session-url="/login">
+				 <concurrency-control max-sessions="1" expired-url="/login"/>
+			</session-management> 
+
+        	<logout
+        		logout-url="/logout"
+        		logout-success-url="/"
+        		invalidate-session="true"
+        		delete-cookies="true"
+        	/>
+        	
+<!-- 403에러 페이지를 대체할 지정화면 이동 설정 : controller 의 매핍 value 랑 일치 시킬 것! -->
+        	<access-denied-handler
+    		error-page="/access_denied"
+			/>
+        	
+        </http>
+        
+<!-- DB연동 설정 -->
+        <authentication-manager>
+            <authentication-provider user-service-ref="userLoginService" />
+        </authentication-manager>
+        
+        <jdbc-user-service data-source-ref="dataSource" id="userLoginService"
+		    users-by-username-query="SELECT mId as logId, mPwd as logPwd, ENABLED FROM member WHERE mId=?"
+		    authorities-by-username-query="SELECT mId as logID, AUTHORITY FROM member WHERE mId=?"
+		/>
+		
+<!-- bean -->		        
+		<beans:bean id="userLoginService" class="com.spring.proj.login.user.CustomUserDetailsService"/>
+
+		<beans:bean id="userLoginSuccessHandler" class="com.spring.proj.login.user.UserLoginSuccessHandler">
+			<beans:property name="logId" value="logId" />
+<!-- 로그인 성공시 home으로 가도록 설정 됨 value="/"(controller의 mapping 패턴) -->			
+			<beans:property name="defaultSuccessURL" value="/" />
+		</beans:bean>
+		
+		<beans:bean id="userLoginFailHandler" class="com.spring.proj.login.user.UserLoginFailHandler">
+			<beans:property name="logId" value="logId" />
+			<beans:property name="logPwd" value="logPwd" />
+<!-- 로그인 실패시 LoginController에서 /loginFail 맵핑, /secu/loginFail.jsp로 이동 -->			
+			<beans:property name="defaultFailureURL" value="/loginFail" />
+		</beans:bean>
+
+</beans:beans>

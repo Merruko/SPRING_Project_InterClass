@@ -1,0 +1,25 @@
+CREATE TABLE member( 
+mNum NUMBER(20) NOT NULL, -- 회원 고유번호(시퀀스자리)
+mId VARCHAR(20) NOT NULL PRIMARY KEY, -- 회원 아이디
+mPwd VARCHAR(20), -- 회원 비밀번호
+mName VARCHAR(15), -- 회원 이름 
+mGender VARCHAR(10), -- 회원 성별 
+mBirth VARCHAR(15), -- 회원 생년월일 
+mEmail VARCHAR(30), -- 회원 이메일 
+mPhone VARCHAR(20) -- 회원 전화번호 
+);
+
+//21.01.29금 수정 (로그인 권한 및 보안 기능 구현을 위해)
+//주의! 기존 테이블에 해당 칼럼의 NULL 값이 있을 경우 오류가 있을 수 있음, 테이블 데이터 삭제바람.
+ALTER TABLE member ADD(authority VARCHAR(50));
+ALTER TABLE member MODIFY(authority NOT NULL);
+ALTER TABLE member MODIFY(authority DEFAULT 'ROLE_USER');
+ALTER TABLE member ADD(enabled NUMBER(5));
+ALTER TABLE member MODIFY(enabled NOT NULL);
+ALTER TABLE member MODIFY(enabled DEFAULT '1');
+
+
+//관리자를 추가해주세요
+INSERT INTO member (mNum, mId, mPwd, mName, mGender, mBirth, mEmail, mPhone, AUTHORITY, ENABLED)
+VALUES ('210101001', 'admin', '12345', '관리자', '남성', '000000', 'admin@test.com', '01012341234', 'ROLE_ADMIN', 1);
+
