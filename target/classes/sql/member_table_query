@@ -22,4 +22,3 @@ ALTER TABLE member MODIFY(enabled DEFAULT '1');
 //관리자를 추가해주세요
 INSERT INTO member (mNum, mId, mPwd, mName, mGender, mBirth, mEmail, mPhone, AUTHORITY, ENABLED)
 VALUES ('210101001', 'admin', '12345', '관리자', '남성', '000000', 'admin@test.com', '01012341234', 'ROLE_ADMIN', 1);
-

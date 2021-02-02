@@ -16,7 +16,7 @@
     </div>
 
     <!-- 로그인 폼: https://getbootstrap.com/docs/4.1/components/forms/ -->
-    <form action="deleteMember" method="post">
+    <form action="deleteMyAccount" method="post">
         <div class="form-group">
             <label>아이디</label>
             <input name="mId" type="text" class="form-control" />

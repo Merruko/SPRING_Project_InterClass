@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.spring</groupId>
 	<artifactId>proj</artifactId>
-	<name>sp</name>
+	<name>interclass</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	
@@ -215,10 +215,9 @@
 		    <version>2.7.6</version>
 		</dependency>
 		
+
+
 	</dependencies>
-	
-	
-	
     <build>
         <plugins>
             <plugin>

@@ -23,4 +23,6 @@ public class LoginController {
 	public String accessDenied() throws Exception {
 		return "/secu/access_denied_page";
 	}
+	
+	//로그아웃은 security-context.xml 자동설정되어 있음. path url = "/logout"
 }

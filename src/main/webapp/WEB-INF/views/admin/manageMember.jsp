@@ -10,7 +10,7 @@
 <!--  All snippets are MIT license http://bootdey.com/license -->
 <title>회원 관리 목록</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="http://netdna.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <style type="text/css">
 	body{
@@ -56,6 +56,9 @@
 <body>
 <%@include file="../menu.jsp" %>
 <div class="container">
+<br>
+<br>
+<br>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -108,7 +111,6 @@
                       	<a href="${path}/updateMember?mId=${user.mId}"><button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" ><i class="fa fa-edit"></i> </button></a>
                         <a href="${path}/deleteMemberByAdmin?mId=${user.mId}"><button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" ><i class="fa fa-trash"></i> </button></a>
                       </td>
-                      
                     </tr>
                     </c:forEach>
                   </tbody>

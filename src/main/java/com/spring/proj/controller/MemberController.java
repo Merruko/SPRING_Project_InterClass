@@ -3,6 +3,7 @@ package com.spring.proj.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/signUp")
-	public String signUpOn(@ModelAttribute @Valid MemberVO vo, BindingResult bindingResult) {
+	public String signUpOn(@ModelAttribute @Valid MemberVO vo, BindingResult bindingResult, HttpServletRequest http) {
 		System.out.println("---postmapping on going");
 		
 		if(bindingResult.hasErrors()) {
@@ -39,6 +40,7 @@ public class MemberController {
 			return "/signup/signUpForm";
 		}
 		memService.register(vo);
+		http.setAttribute("mId", vo.getmId());
 		System.out.println("postmapping completed---");
 		//회원가입 완료 후 가입축하 페이지로
 		return "/signup/signUpSuccess";
@@ -53,8 +55,9 @@ public class MemberController {
 	}
 	
 	@PostMapping("/deleteMyAccount")
-	public String deleteInfoOn(MemberVO vo) {
+	public String deleteInfoOn(MemberVO vo, HttpServletRequest http) {
 		System.out.println("---postmapping on going");
+		http.setAttribute("mId", vo.getmId());
 		memService.unregister(vo);
 		System.out.println("postmapping completed---");
 		//회원탈퇴완료 페이지로
@@ -83,7 +86,7 @@ public class MemberController {
 	
 	//회원상세정보
 	@RequestMapping("/memberInfo")
-	public String OneUser(Principal principal, Model model) {
+	public String oneUser(Principal principal, Model model) {
 		System.out.println("---loading one of members---");
 		model.addAttribute("vo", memService.getOneUser(principal.getName()));
 		return "/user/myInfo";

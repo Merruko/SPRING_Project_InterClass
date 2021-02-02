@@ -8,7 +8,8 @@
 <title>회원가입완료</title>
 </head>
 <body>
-<h5>님 회원가입을 축하드립니다!</h5>
+<h5>${mId}님 회원가입을 축하드립니다!</h5>
 <a href='<c:url value='/'/>'>home</a>
+
 </body>
 </html>
