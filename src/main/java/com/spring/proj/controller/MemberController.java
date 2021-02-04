@@ -101,7 +101,6 @@ public class MemberController {
 		//회원수정페이지로
 		return "/user/myInfoChange";
 	}
-
 	
 	@PostMapping("/updateMember")
 	public String updateInfoOn(MemberVO vo) {
@@ -110,6 +109,17 @@ public class MemberController {
 		System.out.println("postmapping completed---");
 		//수정완료후 회원상세정보 다시 불러오기
 		return "redirect:/memberInfo";
+	}
+	
+	//비밀번호변경
+	@GetMapping("/modifyPwd")
+	public String changePassword() {
+		return "/user/modifyPwd";
+	}
+	
+	@PostMapping("modifyPwd")
+	public String pwdChanged() {
+		return "/user/modifyPwdSuccess";
 	}
 
 }

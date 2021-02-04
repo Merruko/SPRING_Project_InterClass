@@ -21,4 +21,5 @@ public class ValidService {
 			return false; //null이 아니라면 이미 DB에 존재하는 아이디 --> 중복O 사용불가능(false)
 		}
 	}
+	
 }

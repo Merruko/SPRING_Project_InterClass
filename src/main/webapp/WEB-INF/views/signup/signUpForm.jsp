@@ -109,9 +109,7 @@ function checkPwd() {
 
 						<div class="text-center mt-4">
 							<h1 class="h2">회원가입</h1>
-							<p class="lead">
-				블라블라 뭐라고 적기
-							</p>
+							<br>
 						</div>
 
 						<div class="card">

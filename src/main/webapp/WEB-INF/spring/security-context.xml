@@ -70,8 +70,8 @@ default-target-url : 로그인 성공시 호출할 url패턴
         </authentication-manager>
         
         <jdbc-user-service data-source-ref="dataSource" id="userLoginService"
-		    users-by-username-query="SELECT mId as logId, mPwd as logPwd, ENABLED FROM member WHERE mId=?"
-		    authorities-by-username-query="SELECT mId as logID, AUTHORITY FROM member WHERE mId=?"
+		    users-by-username-query="SELECT mId as logId, mPwd as logPwd, ENABLED FROM i_member WHERE mId=?"
+		    authorities-by-username-query="SELECT mId as logID, AUTHORITY FROM i_member WHERE mId=?"
 		/>
 		
 <!-- bean -->		        

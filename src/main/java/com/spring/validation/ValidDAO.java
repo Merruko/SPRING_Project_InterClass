@@ -17,4 +17,5 @@ public class ValidDAO {
 		System.out.println("아이디 중복검사 중(dao)");
 		return id_ck;
 	}
+	
 }

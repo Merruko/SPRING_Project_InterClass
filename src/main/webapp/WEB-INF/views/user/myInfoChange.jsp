@@ -1,103 +1,93 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보수정</title>
-<link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<title>내정보</title>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <style type="text/css">
-    body{
-	    margin-top:20px;
-	    background-color: #f2f3f8;
-	}
-	.card {
-	    margin-bottom: 1.5rem;
-	    box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
-	}
-	
-	.card {
-	    position: relative;
-	    display: -ms-flexbox;
-	    display: flex;
-	    -ms-flex-direction: column;
-	    flex-direction: column;
-	    min-width: 0;
-	    word-wrap: break-word;
-	    background-color: #fff;
-	    background-clip: border-box;
-	    border: 1px solid #e5e9f2;
-	    border-radius: .2rem;
-	}
+	body{margin: auto;}
+	table{width: 500px; border-collapse: collapse;}
+	tr, td{border: 1px solid white; padding: 10px;}
+	input[type="text"],[type="password"] {width: 200px; height: 20px;}
+	input[type="reset"],[type="submit"], button {border: 1px solid #333; border-radius: 5px; padding: 5px 25px; background: orange; text-decoration: none; color: black; font-size: 0.9em; font-weight: bold;}
+	input[type="radio"] {display: none;}
+	p{margin: 0 0 20px; line-height: 1.5;}
+    h1{padding: 20px 0; font-weight: bold; text-align: center;}
+	section{display: none; padding: 20px 0 0; border-top: 1px solid #ddd;}
+	label{display: inline-block; margin: 0 0 -1px; padding: 15px 25px; font-weight: 600; text-align: center; border: 1px solid transparent;}
+    .main{min-width: 320px; max-width: 800px; margin: 0 auto; background: #ffffff;}
+	.button{border: 1px solid #333; border-radius: 5px; padding: 5px 25px; background: orange; text-decoration: none; color: black; font-size: 0.9em; font-weight: bold;}
+	.notice{text-align: center; border: 1px solid; height: 200px; font-size: 15px; line-height: 140px; padding: 50px;}
+	label:hover{color: #2e9cdf; cursor: pointer;}
+	input:checked + label{border: 1px solid #ddd; border-top: 2px solid #2e9cdf; border-bottom: 1px solid #ffffff;}
+	#tab1:checked ~ #content1,
+	#tab2:checked ~ #content2,
+	#tab3:checked ~ #content3,
+	#tab4:checked ~ #content4 {display: block;}     
 </style>
+
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<div class="container h-100">
-    		<div class="row h-100">
-				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-					<div class="d-table-cell align-middle">
-
-						<div class="text-center mt-4">
-							<h1 class="h2">회원정보수정</h1>
-							<p class="lead">
-							</p>
-						</div>
-
-						<div class="card">
-							<div class="card-body">
-								<div class="m-sm-4">
-									<form action="updateMember" name="memInfoChangeForm" method="post">
-										<div class="form-group">
-											<label>아이디</label>
-											<input class="form-control form-control-lg" type="text" name="mId" value="${vo.mId}" readonly="readonly" >
-										</div>
-										<div class="form-group">
-											<label>비밀번호</label>
-											<input class="form-control form-control-lg" type="password" name="mPwd">
-										</div>
-										<div class="form-group">
-											<label>이름</label>
-											<input class="form-control form-control-lg" type="text" name="mName" value="${vo.mName}" >
-										</div>
-										<div class="form-group">
-											<label>성별</label>
-											<select class="form-control form-control-lg" id="gender" name="mGender" >
-												<option value="남성" <c:if test="${vo.mGender == '남성'}">selected</c:if>>남성</option>
-												<option value="여성" <c:if test="${vo.mGender == '여성'}">selected</c:if>>여성</option>
-											</select>
-										</div>
-										<div class="form-group">
-											<label>생일</label>
-											<input class="form-control form-control-lg" type="text" name="mBirth" value="${vo.mBirth}" >
-										</div>
-										<div class="form-group">
-											<label>이메일</label>
-											<input class="form-control form-control-lg" type="email" name="mEmail" value="${vo.mEmail}" >
-										</div>
-										<div class="form-group">
-											<label>전화번호</label>
-											<input class="form-control form-control-lg" type="text" name="mPhone" value="${vo.mPhone}" >
-										</div>
-										<div class="text-center mt-3">
-											<button type="submit" class="btn btn-lg btn-primary">저장</button>
-											<!-- 작성을 취소하면 마이페이지 메인홈으로, 일단 수정전 회원상세페이지로 연동 -->
-											<a href="${path}/memberInfo?mId=${vo.mId}"><button type="button" class="btn btn-lg btn-primary">취소</button></a>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script type="text/javascript">
+	<jsp:include page="../menu.jsp" />
 	
-</script>
+	<div class="main">
+	
+    <h1>My Page</h1>
+    
+    <jsp:include page="./tab.jsp" />
+    <form action="updateMember" name="memInfoChangeForm" method="post">
+      <div class="tab-content no-border padding-24">
+        <div id="myinfo" class="tab-pane in active">
+          <section id="content1">
+		       <table>
+		       		<tr>
+						<td>아이디</td>
+						<td><input type="text" name="mId" value="${vo.mId}" readonly="readonly" ></td>
+					</tr>
+					<tr>
+						<td>비밀번호</td>
+						<td><input type="password" name="mPwd"></td>
+					</tr>
+					<tr>
+						<td>이름</td>
+						<td><input type="text" name="mName" value="${vo.mName}" ></td>
+					</tr>
+					<tr>
+						<td>성별</td>
+						<td>
+							<select id="gender" name="mGender" >
+								<option value="남성" <c:if test="${vo.mGender == '남성'}">selected</c:if>>남성</option>
+								<option value="여성" <c:if test="${vo.mGender == '여성'}">selected</c:if>>여성</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>생년월일</td>
+						<td><input type="text" name="mBirth" value="${vo.mBirth}" ></td>
+					</tr>
+					<tr>
+						<td>이메일</td>
+						<td><input type="email" name="mEmail" value="${vo.mEmail}" ></td>
+					</tr>
+					<tr>
+						<td>연락처</td>
+						<td><input type="text" name="mPhone" value="${vo.mPhone}" ></td>
+					</tr>
+		       </table>
+		       <div>
+		       <button type="submit" >저장</button>
+		       <button type="button" onclick="location.href='${path}/memberInfo?mId=${vo.mId}'" >취소</button>
+		       </div>
+      	 </section>
+        </div>
+      </div> 
+     </form>
+    </div>  
+   
+<jsp:include page="../footer.jsp" />
 </body>
 </html>

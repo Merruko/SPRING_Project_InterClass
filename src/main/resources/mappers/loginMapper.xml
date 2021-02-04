@@ -10,7 +10,7 @@
             SELECT
                 *
             FROM
-                member
+                i_member
             WHERE
                 mId = #{logId}
         ]]>

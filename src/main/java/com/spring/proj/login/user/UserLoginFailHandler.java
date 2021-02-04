@@ -75,6 +75,5 @@ public class UserLoginFailHandler implements AuthenticationFailureHandler {
 		this.defaultFailureURL = defaultFailureURL;
 	}
 	
-	
 
 }

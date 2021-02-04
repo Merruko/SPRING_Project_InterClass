@@ -53,8 +53,6 @@ body{
     }
 }
 
-
-
 .card-columns .card {
     margin-bottom: 0.75rem;
 }
@@ -86,26 +84,28 @@ p {
     display: flex;
     width: 100%;
 }
-    </style>
+</style>
 </head>
 <body>
 <br>
 <br>
-<div class="logo" style="width:600px; margin:auto; text-align:left;">
-	<a href='<c:url value='/'/>'>home</a>
-</div>
+	<div class="container text-center" onclick="location.href='<c:url value='/'/>'">
+  			<h1>InterClass</h1>
+	</div>
+<hr>
+<br>
 <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card-group mb-0">
           <div class="card p-4">
             <div class="card-body">
-              <h1>Login</h1>
+              <h3>Login</h3>
               <p class="text-muted">Sign In to your account</p>
 			
 		<form action="/login" method="post">
 			<!-- ID -->
-              <div class="input-group mb-3">
+              <div class="input-group mb-2">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
                 <input type="text" class="form-control" name="logId" placeholder="ID">
               </div>
@@ -115,31 +115,27 @@ p {
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                 <input type="password" class="form-control" name="logPwd" placeholder="Password">
               </div>
-
-              <div class="row">
-                <div class="col-6">
+              
+            <!-- LOGIN -->
+              <div class="input-group mb-2">
                 	<!-- 117행 중요! spring security 관련, 변경하지말 것 -->
-                	<button type="submit" class="btn btn-primary px-4">Login</button>
+                	<button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
                 	<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
-                </div>
-                
-                <div class="col-6 text-right">
-                  <button type="button" class="btn btn-link px-0">Forgot password?</button>
-                </div>
+              </div>
+              <div>
+              <table>
+              	<tr>
+              		<td><button type="button" class="btn btn-info btn-link" onclick="location.href='<c:url value="#"/>'" >아이디 찾기</button></td>
+              		<td><button type="button" class="btn btn-info btn-link" onclick="location.href='<c:url value="#"/>'" >비밀번호 찾기</button></td>
+              		<td><button type="button" class="btn btn-info btn-link" onclick="location.href='<c:url value="/signUp"/>'" >회원가입</button></td>
+              	</tr>
+              </table>
               </div>
 		</form>
           
             </div>
           </div>
-          <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
-            <div class="card-body text-center">
-              <div>
-                <h2>Sign up</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <h5><a href='<c:url value="/signUp"/>'><button type="button" class="btn btn-primary active mt-3">Register Now!</button></a> </h5>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>

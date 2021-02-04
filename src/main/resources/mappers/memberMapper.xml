@@ -12,7 +12,7 @@
 			SELECT zbf_get_mem('now') FROM DUAL
 		</selectKey>
 	
-	INSERT INTO member
+	INSERT INTO i_member
 	(mNum, mId, mPwd, mName, mGender, mBirth, mEmail, mPhone)
 	VALUES
 	(#{mNum},#{mId},#{mPwd},#{mName},#{mGender},#{mBirth},#{mEmail},#{mPhone})
@@ -21,25 +21,25 @@
 	
 	<!-- 회원삭제 -->
 	<insert id="delete" parameterType="com.spring.proj.domain.MemberVO">
-	DELETE FROM member WHERE mId = #{mId}
+	DELETE FROM i_member WHERE mId = #{mId}
 	</insert>
 	
 	
 	<!-- 회원목록전체 -->
 	<select id="selectall" resultType="com.spring.proj.domain.MemberVO">
-	SELECT * FROM member ORDER BY mNum ASC
+	SELECT * FROM i_member ORDER BY mNum ASC
 	</select>
 	
 	
 	<!-- 회원상세정보 -->
 	<select id="selectOne" resultType="com.spring.proj.domain.MemberVO">
-	SELECT * FROM member WHERE mId = #{mId}
+	SELECT * FROM i_member WHERE mId = #{mId}
 	</select>
 	
 	
 	<!-- 회원정보수정 -->
 	<update id="update" parameterType="com.spring.proj.domain.MemberVO">
-	UPDATE member
+	UPDATE i_member
 	SET mPwd = #{mPwd},
 		mName = #{mName},
 		mGender = #{mGender},

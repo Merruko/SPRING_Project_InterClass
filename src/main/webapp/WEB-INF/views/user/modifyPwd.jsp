@@ -39,27 +39,36 @@
     <h1>My Page</h1>
     <jsp:include page="./tab.jsp" />
       <div class="tab-content no-border padding-24">
-        
-        <div id="info_delete" >
-          <section id="content4">
-		    	<div class="notice">
-					<p>
-					※ 회원탈퇴 시 주의사항 안내문 ※<br><br>
-					회원을 탈퇴 하시면 해당 아이디로는 재가입 할 수 없습니다.<br>
-					탈퇴 시 보유하고 계신 예약 강의와 수강 내역 등 모두 삭제되어,<br>
-					복구가 불가능 하니 신중하게 결정 부탁 드립니다.<br>
-					</p>
-				</div>
-		        <br>
-		        <div>
-			        <input type="checkbox"> ※ 위 내용을 모두 확인하였으며, 이에 동의합니다.<br><br>
-					<input type="reset" value="취소">
-					<input type="submit" value="탈퇴" onClick="if(confirm('정말로 탈퇴하시겠습니까?')){location.href='#.do';}">		
-				</div>
-		    </section>
+        <div id="myinfo" class="tab-pane in active">
+          
+
+        <div id="password_modify" class="tab-pane">
+	          <section id="content3">
+				<table>
+					<tr>
+						<td>현재 비밀번호</td>
+						<td><input type="password" name="mPwd2" value="${vo.mPwd }"></td>
+					</tr>
+					<tr><td>　</td></tr>
+					<tr>
+						<td>새 비밀번호</td>
+						<td><input type="password" name="nPwd"></td>
+					</tr>
+					<tr><td>　</td></tr>
+					<tr>
+						<td>비밀번호 재확인</td>
+						<td><input type="password" name="nPwd_c"></td>
+					</tr>
+				</table><br>
+				<input type="reset" value="취소">
+				<input type="submit" value="변경" onClick="if(confirm('정말로 비밀번호를 변경하시겠습니까?')){location.href='#.do';}">		
+	  		  </section>
         </div>
+        
+        
 	</div>
-	</div>
+</div>
+</div>
         
 <jsp:include page="../footer.jsp" />
 </body>

@@ -23,4 +23,5 @@ public interface MemberService {
 	
 	//6. 로그인
 	public MemberVO login(MemberVO vo);
+
 }
