@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,9 +119,17 @@ p {
 					<br>
 				</div>
 				<div>
+				
 					<p align="center">
-						${ mId }
-					</p><br>
+					<strong>${fn:substring(mId, 0, 4)}
+					<c:forEach begin="1" end="${fn:length(mId)-4}">
+							*
+					</c:forEach>
+					</strong>
+					<br>
+					<br>
+					</p>
+					
 					<p class="w3-center">
 						<button type="button" id=loginBtn class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-round">로그인</button>
 						<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-margin-bottom w3-round">뒤로</button>
