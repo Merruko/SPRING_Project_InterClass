@@ -1,7 +1,3 @@
-<!-- 아이디, 비밀번호 찾기 기능 구현하기(01.31) -->
-<!-- 로그인, 로그인fail 화면 홈으로가기 div 꾸미기(01.31) -->
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -9,8 +5,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
-<!--  All snippets are MIT license http://bootdey.com/license -->
 <title>로그인페이지</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
@@ -125,8 +119,8 @@ p {
               <div>
               <table>
               	<tr>
-              		<td><button type="button" class="btn btn-info btn-link" onclick="location.href='<c:url value="#"/>'" >아이디 찾기</button></td>
-              		<td><button type="button" class="btn btn-info btn-link" onclick="location.href='<c:url value="#"/>'" >비밀번호 찾기</button></td>
+              		<td><button type="button" class="btn btn-info btn-link" onclick="location.href='<c:url value="/findId"/>'" >아이디 찾기</button></td>
+              		<td><button type="button" class="btn btn-info btn-link" onclick="location.href='<c:url value="/findPwd"/>'" >비밀번호 찾기</button></td>
               		<td><button type="button" class="btn btn-info btn-link" onclick="location.href='<c:url value="/signUp"/>'" >회원가입</button></td>
               	</tr>
               </table>
@@ -140,6 +134,7 @@ p {
       </div>
     </div>
   </div>
+  
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 <script type="text/javascript">

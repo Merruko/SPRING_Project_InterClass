@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.proj.domain.MemberVO;
 import com.spring.proj.service.MemberServiceImpl;
@@ -120,6 +122,30 @@ public class MemberController {
 	@PostMapping("modifyPwd")
 	public String pwdChanged() {
 		return "/user/modifyPwdSuccess";
+	}
+	
+	//아이디 찾기
+	@GetMapping("/findId")
+	public String findId() {
+		return "/user/findId";
+	}
+	
+	@RequestMapping("/findId")
+	public String findId(HttpServletResponse response, @RequestParam("email") String mEmail, Model model) throws Exception {
+		model.addAttribute("mId", memService.findId(response, mEmail));
+		return "/user/foundId";
+	}
+	
+	//비밀번호 찾기
+	@GetMapping("/findPwd")
+	public String findPwd() {
+		return "/user/findPwd";
+	}
+	
+	@RequestMapping("/findPwd")
+	public String findPwd(HttpServletResponse response, @RequestParam("id") String mId, Model model) throws Exception {
+		model.addAttribute("mPwd", memService.findPwd(response, mId));
+		return "/user/foundPwd";
 	}
 
 }

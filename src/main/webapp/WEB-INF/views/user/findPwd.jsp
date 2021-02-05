@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>아이디 찾기</title>
+<title>비밀번호 찾기</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -97,7 +97,7 @@ p {
 <hr>
 <br>
 
-<form action="/findId" method="post">
+<form action="/findPwd" method="post">
 <div class="container">
 	<div class="row justify-content-center">
       <div class="col-md-8">
@@ -105,12 +105,12 @@ p {
           <div class="card p-4">
             <div class="card-body">
 				<div class="w3-center w3-large w3-margin-top">
-					<h3>아이디 찾기</h3>
+					<h3>비밀번호 찾기</h3>
 				</div>
 				<div>
 					<p>
-						<label>Email</label>
-						<input class="w3-input" type="text" id="email" name="email" required>
+						<label>ID</label>
+						<input class="w3-input" type="text" id="id" name="id" required>
 					</p>
 					<p class="w3-center">
 						<button type="submit" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-round">찾기</button>

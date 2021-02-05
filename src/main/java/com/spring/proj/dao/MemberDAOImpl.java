@@ -65,5 +65,15 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.println("로그인 dao 완료");
 		return loginuser;
 	}
+	
+	//7. 아이디 찾기
+	public String findId(String mEmail) {
+		return sqlSession.selectOne("member.findId", mEmail);
+	}
+	
+	//8. 비밀번호 찾기
+	public String findPwd(String mId) {
+		return sqlSession.selectOne("member.findPwd", mId);
+	}
 
 }

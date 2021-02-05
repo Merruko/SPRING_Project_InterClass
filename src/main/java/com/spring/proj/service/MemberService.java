@@ -2,6 +2,8 @@ package com.spring.proj.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.spring.proj.domain.MemberVO;
 
 public interface MemberService {
@@ -24,4 +26,10 @@ public interface MemberService {
 	//6. 로그인
 	public MemberVO login(MemberVO vo);
 
+	//7. 아이디 찾기
+	public String findId(HttpServletResponse response, String email) throws Exception;
+	
+	//8. 비밀번호 찾기
+	public String findPwd(HttpServletResponse response, String id) throws Exception;
+	
 }

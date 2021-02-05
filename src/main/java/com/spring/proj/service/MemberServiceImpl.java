@@ -1,6 +1,9 @@
 package com.spring.proj.service;
 
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -62,6 +65,44 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO loginuser = memDAO.login(vo);
 		System.out.println("로그인 service 완료");
 		return loginuser;
+	}
+	
+	//7. 아이디 찾기
+	@Override
+	public String findId(HttpServletResponse response, String mEmail) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		String id = memDAO.findId(mEmail);
+			
+		if (id == null) {
+			out.println("<script>");
+			out.println("alert('가입된 아이디가 없습니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return null;
+		} else {
+			return id;
+		}
+	}
+	
+	//8. 비밀번호 찾기
+	@Override
+	public String findPwd(HttpServletResponse response, String mId) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		String pwd = memDAO.findPwd(mId);
+		
+		if (pwd == null) {
+			out.println("<script>");
+			out.println("alert('가입된 아이디가 없습니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return null;
+		} else {
+			return pwd;
+		}
 	}
 
 }

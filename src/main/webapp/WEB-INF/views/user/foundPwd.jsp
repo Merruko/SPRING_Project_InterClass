@@ -5,7 +5,17 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>아이디 찾기</title>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+	$(function(){
+		$("#loginBtn").click(function(){
+			location.href='<c:url value="/login"/>';
+		})
+	})
+</script>
+
+<title>비밀번호 찾기 결과</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,7 +77,6 @@ body{
         width: 100%;
     }
 }
-
 .text-muted {
     color: #9faecb !important;
 }
@@ -105,16 +114,16 @@ p {
           <div class="card p-4">
             <div class="card-body">
 				<div class="w3-center w3-large w3-margin-top">
-					<h3>아이디 찾기</h3>
+					<h3>당신의 비밀번호는</h3>
+					<br>
 				</div>
 				<div>
-					<p>
-						<label>Email</label>
-						<input class="w3-input" type="text" id="email" name="email" required>
-					</p>
+					<p align="center">
+						${ mPwd }
+					</p><br>
 					<p class="w3-center">
-						<button type="submit" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-round">찾기</button>
-						<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-margin-bottom w3-round">취소</button>
+						<button type="button" id=loginBtn class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-round">로그인</button>
+						<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-margin-bottom w3-round">뒤로</button>
 					</p>
 				</div>
 			</div>

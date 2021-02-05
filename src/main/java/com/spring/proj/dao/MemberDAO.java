@@ -24,4 +24,10 @@ public interface MemberDAO {
 	//6. 로그인
 	public MemberVO login(MemberVO vo);
 	
+	//7. 아이디 찾기
+	public String findId(String mEmail);
+	
+	//8. 비밀번호 찾기
+	public String findPwd(String mId);
+	
 }

@@ -49,4 +49,14 @@
 	WHERE mId = #{mId}
 	</update>
 	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="String" resultType="String">
+		SELECT mId FROM i_member WHERE mEmail = #{mEmail}
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPwd" parameterType="String" resultType="String">
+		SELECT mPwd FROM i_member WHERE mId = #{mId}
+	</select>
+	
 </mapper>
