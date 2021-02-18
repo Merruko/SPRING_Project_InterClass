@@ -5,58 +5,76 @@
 <mapper namespace="member">
 
 	<!-- 회원가입 -->
-	<insert id="insert" parameterType="com.spring.proj.domain.MemberVO">
+	<insert id="insert" parameterType="com.spring.member.domain.MemberVO">
 	
 		<!-- SEQ 작업 -->
 		<selectKey keyProperty="mNum" resultType="int" order="BEFORE">
 			SELECT zbf_get_mem('now') FROM DUAL
 		</selectKey>
 	
-	INSERT INTO i_member
-	(mNum, mId, mPwd, mName, mGender, mBirth, mEmail, mPhone)
+	INSERT INTO member
+	(MNUM, MID, MPWD, MNAME, MGENDER, MBIRTH, MEMAIL, MPHONE)
 	VALUES
 	(#{mNum},#{mId},#{mPwd},#{mName},#{mGender},#{mBirth},#{mEmail},#{mPhone})
 	</insert>
 	
 	
 	<!-- 회원삭제 -->
-	<insert id="delete" parameterType="com.spring.proj.domain.MemberVO">
-	DELETE FROM i_member WHERE mId = #{mId}
+	<insert id="delete" parameterType="com.spring.member.domain.MemberVO">
+	DELETE FROM member WHERE MID = #{mId}
 	</insert>
 	
 	
 	<!-- 회원목록전체 -->
-	<select id="selectall" resultType="com.spring.proj.domain.MemberVO">
-	SELECT * FROM i_member ORDER BY mNum ASC
+	<select id="selectall" resultType="com.spring.member.domain.MemberVO">
+	SELECT * FROM member ORDER BY MNUM ASC
 	</select>
 	
 	
 	<!-- 회원상세정보 -->
-	<select id="selectOne" resultType="com.spring.proj.domain.MemberVO">
-	SELECT * FROM i_member WHERE mId = #{mId}
+	<select id="selectOne" resultType="com.spring.member.domain.MemberVO">
+	SELECT * FROM member WHERE MID = #{mId}
 	</select>
 	
 	
 	<!-- 회원정보수정 -->
-	<update id="update" parameterType="com.spring.proj.domain.MemberVO">
-	UPDATE i_member
-	SET mPwd = #{mPwd},
-		mName = #{mName},
-		mGender = #{mGender},
-		mBirth = #{mBirth},
-		mEmail = #{mEmail},
-		mPhone = #{mPhone}
-	WHERE mId = #{mId}
+	<update id="update" parameterType="com.spring.member.domain.MemberVO">
+	UPDATE member
+	SET MNAME = #{mName},
+		MGENDER = #{mGender},
+		MBIRTH = #{mBirth},
+		MEMAIL = #{mEmail},
+		MPHONE = #{mPhone}
+	WHERE MID = #{mId}
+	</update>
+	
+	<!-- 회원정보수정 -->
+	<update id="updateByAdmin" parameterType="com.spring.member.domain.MemberVO">
+	UPDATE member
+	SET MNAME = #{mName},
+		MPWD = #{mPwd},
+		MGENDER = #{mGender},
+		MBIRTH = #{mBirth},
+		MEMAIL = #{mEmail},
+		MPHONE = #{mPhone}
+	WHERE MID = #{mId}
+	</update>
+	
+	<!-- 비밀번호변경 -->
+	<update id="updatePass" parameterType="com.spring.member.domain.MemberVO">
+	UPDATE member
+	SET MPWD = #{mPwd}
+	WHERE MID = #{mId}
 	</update>
 	
 	<!-- 아이디 찾기 -->
 	<select id="findId" parameterType="String" resultType="String">
-		SELECT mId FROM i_member WHERE mEmail = #{mEmail}
+		SELECT MID FROM member WHERE MEMAIL = #{mEmail}
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
 	<select id="findPwd" parameterType="String" resultType="String">
-		SELECT mPwd FROM i_member WHERE mId = #{mId}
+		SELECT MPWD FROM member WHERE MID = #{mId}
 	</select>
 	
 </mapper>

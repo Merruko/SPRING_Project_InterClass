@@ -1,0 +1,52 @@
+--------------------------------------------------------
+--  ������ ������ - �����-2��-18-2021   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table CART
+--------------------------------------------------------
+
+  CREATE TABLE "HR"."CART" 
+   (	"CARTNUM" NUMBER, 
+	"MID" VARCHAR2(50 BYTE), 
+	"LECTURENUM" NUMBER, 
+	"ADDDATE" DATE DEFAULT sysdate
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+REM INSERTING into HR.CART
+SET DEFINE OFF;
+
+Insert into HR.CART (CARTNUM,MID,LECTURENUM,ADDDATE) values (21,'rjsxo9885',26,to_date('21/02/08','RR/MM/DD'));
+Insert into HR.CART (CARTNUM,MID,LECTURENUM,ADDDATE) values (17,'sonysega25',26,to_date('21/02/05','RR/MM/DD'));
+Insert into HR.CART (CARTNUM,MID,LECTURENUM,ADDDATE) values (18,'sonysega25',28,to_date('21/02/05','RR/MM/DD'));
+Insert into HR.CART (CARTNUM,MID,LECTURENUM,ADDDATE) values (1,'test1',28,to_date('21/02/10','RR/MM/DD'));
+--------------------------------------------------------
+--  DDL for Index SYS_C0013955
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "HR"."SYS_C0013955" ON "HR"."CART" ("CARTNUM", "MID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  Constraints for Table CART
+--------------------------------------------------------
+
+  ALTER TABLE "HR"."CART" ADD PRIMARY KEY ("CARTNUM", "MID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+  
+  ALTER TABLE "HR"."CART" MODIFY ("LECTURENUM" NOT NULL ENABLE);
+  ALTER TABLE "HR"."CART" MODIFY ("MID" NOT NULL ENABLE);
+  ALTER TABLE "HR"."CART" MODIFY ("CARTNUM" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Ref Constraints for Table CART
+--------------------------------------------------------
+
+  ALTER TABLE "HR"."CART" ADD CONSTRAINT "INT_CART_LECTURENUM" FOREIGN KEY ("LECTURENUM")
+	  REFERENCES "HR"."LECTURECLASS" ("LECTURENUM") ENABLE;

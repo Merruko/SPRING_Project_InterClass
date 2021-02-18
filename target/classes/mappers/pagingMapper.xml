@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="paging">
+
+	<!-- 총 게시글 갯수 출력 -->
+	<select id="countMember" resultType="int">
+	SELECT COUNT(*) AS listCnt FROM member
+
+	<choose>	
+		<when test="keyword != null and keyword != '' ">
+			<if test="searchType=='memId'">
+				WHERE MID like #{keyword}
+			</if>
+			<if test="searchType=='name'">
+				WHERE MNAME like #{keyword}
+			</if>
+			<if test="searchType=='birth'">
+				WHERE MBIRTH like #{keyword}
+			</if>
+      	</when>
+	</choose>
+	</select>
+	
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="selectMemberAll" resultType="com.spring.member.domain.MemberVO">
+	SELECT * 
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT * 
+						FROM member 
+						
+						<choose>
+							<when test="searchType=='memId' and keyword != null and keyword != '' ">
+								WHERE MID like #{keyword} 
+							</when>
+							<when test="searchType=='name' and keyword != null and keyword != '' ">
+								WHERE MNAME like #{keyword} 
+							</when>
+							<when test="searchType=='birth' and keyword != null and keyword != '' ">
+								WHERE MBIRTH like #{keyword} 
+							</when>
+						</choose>	
+						
+						ORDER BY MNUM ASC 
+						) A
+				)
+				
+		WHERE RN BETWEEN #{startList} +1 AND #{startList} + #{listSize} 
+				
+	</select>
+	
+</mapper>

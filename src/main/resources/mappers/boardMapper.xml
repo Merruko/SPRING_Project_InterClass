@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+   
+   <!-- 쇼핑몰 글 작성 -->
+   <insert id="insert" parameterType="com.spring.board.domain.LectureVO" useGeneratedKeys="true" keyProperty="lectureNum">
+	    <selectKey keyProperty="lectureNum" resultType="int" order="BEFORE">
+	    	SELECT MP_LECTURE_SEQ.NEXTVAL FROM DUAL
+	    </selectKey>
+ 		INSERT INTO LECTURECLASS(LECTURENUM
+	   					      , LECTURENAME 
+	   					      , LECTURECONTENT 
+	   					      , LECTURELISTCONTENT
+	   					      , LECTUREIMAGE
+	   					      )
+	                 VALUES(    #{lectureNum}
+	                 		  , #{lectureName}
+	                 		  , #{lectureContent}
+	                 		  , #{lectureListContent}
+	                 		  , #{lectureImage}
+	                 		  )
+   
+   
+   </insert>
+   
+   <select id="list"  resultType="com.spring.board.domain.LectureVO">
+   						SELECT 	LECTURENUM
+	   					      , LECTURENAME
+	   					      , LECTURELISTCONTENT 
+	   					      , LECTUREIMAGE 
+	   					FROM LECTURECLASS
+	   					ORDER BY LECTURENUM
+   </select>
+   
+   <select id ="read" parameterType="int" resultType="com.spring.board.domain.LectureVO">
+   						SELECT LECTURENUM
+   							  ,LECTURENAME
+   							  ,LECTURECONTENT
+   							  ,LECTURELISTCONTENT
+   							  ,LECTUREIMAGE
+   						FROM LECTURECLASS
+   						WHERE LECTURENUM=#{lectureNum}
+   						
+   
+   
+   </select>
+   <select id="selectFileList" parameterType="int" resultType="hashMap">
+	SELECT LECTURENUM,
+		   LECTUREIMAGE
+	  FROM LECTURECLASS
+	 WHERE LECTURENUM = #{lectureNum}
+	  
+	</select>
+   
+   
+   <update id="update" parameterType="com.spring.board.domain.LectureVO">
+   						UPDATE LECTURECLASS set LECTURENAME =#{lectureName} ,
+   										        LECTURECONTENT = #{lectureContent} ,
+   										        LECTURELISTCONTENT = #{lectureListContent} ,  
+   												LECTUREIMAGE= #{lectureImage}
+   						 WHERE LECTURENUM = #{lectureNum} 
+   </update>
+   <delete id ="delete" parameterType="int">
+   						DELETE 
+   						FROM LECTURECLASS
+   						WHERE LECTURENUM = #{lectureNum}
+   			
+   </delete>
+   
+   <insert id="insertFile" parameterType="hashMap">
+		UPDATE LECTURECLASS set LECTUREIMAGE =#{lectureImage} 
+		WHERE LECTURENUM = #{lectureNum}
+    </insert>
+    
+    <!-- 카트 담기 -->
+	<insert id="addCart" parameterType="map">
+	 insert into int_cart (cartNum, mID, lectureNum)
+     values (int_cart_seq.nextval, #{mId}, #{lectureNum})
+	</insert>
+   
+	<select id="newLecture" resultType="com.spring.board.domain.LectureVO">
+		<![CDATA[
+		SELECT ROWNUM,LECTURENAME FROM(SELECT * FROM LECTURECLASS ORDER BY LECTURENUM DESC) WHERE ROWNUM<=3
+		]]>
+	</select>
+   <!-- 카트 리스트 -->
+   
+   <select id = "cartList" resultType="com.spring.board.dao.CartListVO">
+   		 select row_number() OVER(order by c.cartNum DESC) as num,
+                    c.cartNum,c.mId,c.lectureNum , c.addDate,l.lectureName,l.lectureImage
+                    from int_cart c
+                        inner join LECTURECLASS l 
+                        on c.lectureNum = l.lectureNum
+                        where c.mId = #{mId} 
+   
+   </select>
+   
+      <!-- 카트 삭제 -->
+   		<delete id="deleteCart">
+   			delete int_cart
+   					where cartNum = #{cartNum}
+   						and mId =  #{mId}
+   		</delete>
+</mapper>

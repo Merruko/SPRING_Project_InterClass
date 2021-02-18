@@ -6,61 +6,139 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내정보</title>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-<style type="text/css">
-	body{margin: auto;}
-	table{width: 500px; border-collapse: collapse;}
-	tr, td{border: 1px solid white; padding: 10px;}
-	input[type="text"],[type="password"] {width: 200px; height: 20px;}
-	input[type="reset"],[type="submit"] {border: 1px solid #333; border-radius: 5px; padding: 5px 25px; background: orange; text-decoration: none; color: black; font-size: 0.9em; font-weight: bold;}
-	input[type="radio"] {display: none;}
-	p{margin: 0 0 20px; line-height: 1.5;}
-    h1{padding: 20px 0; font-weight: bold; text-align: center;}
-	section{display: none; padding: 20px 0 0; border-top: 1px solid #ddd;}
-	label{display: inline-block; margin: 0 0 -1px; padding: 15px 25px; font-weight: 600; text-align: center; border: 1px solid transparent;}
-    .main{min-width: 320px; max-width: 800px; margin: 0 auto; background: #ffffff;}
-	.button{border: 1px solid #333; border-radius: 5px; padding: 5px 25px; background: orange; text-decoration: none; color: black; font-size: 0.9em; font-weight: bold;}
-	.notice{text-align: center; border: 1px solid; height: 200px; font-size: 15px; line-height: 140px; padding: 50px;}
-	label:hover{color: #2e9cdf; cursor: pointer;}
-	input:checked + label{border: 1px solid #ddd; border-top: 2px solid #2e9cdf; border-bottom: 1px solid #ffffff;}
-	#tab1:checked ~ #content1,
-	#tab2:checked ~ #content2,
-	#tab3:checked ~ #content3,
-	#tab4:checked ~ #content4 {display: block;}     
-</style>
-
+<title>회원탈퇴</title>
 </head>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+	body{
+    margin-top:20px;
+    background:#f8f8f8;
+	}
+</style>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+function deleConfirm(){
+	if ($("input:checkbox[name=agreement]").is(":checked")) {
+		
+		if($("#userId").val() == $("#deleteId").val() &&
+				$("#userPwd").val() == $("#deletePwd").val()){
+			
+			var result = confirm("정말 탈퇴하시겠습니까?");
+			
+	    	if(result == true){
+	    		alert("탈퇴가 완료되었습니다.");
+	    		return true;
+	    	} else {
+	    		alert("탈퇴를 취소하셨습니다.");
+	    		return false
+	    	}
+			
+		} else {
+			alert("탈퇴하는 아이디와 비밀번호를 다시 확인해주세요.");
+			return false;
+		}
+
+    } else {
+    	alert("탈퇴약관에 동의해주십시오.");
+    	return false;
+    }
+}
+</script>
 <body>
-	<jsp:include page="../menu.jsp" />
+<br>
+	<div class="container text-center" onclick="location.href='<c:url value='/'/>'">
+  			<h1>InterClass</h1>
+	</div>
+<br>
+<hr>
+
+<div class="container" style="width: 800px;">
+	<div class="row flex-lg-nowrap">
 	
-	<div class="main">
-	
-    <h1>My Page</h1>
-    <jsp:include page="./tab.jsp" />
-      <div class="tab-content no-border padding-24">
-        
-        <div id="info_delete" >
-          <section id="content4">
-		    	<div class="notice">
-					<p>
-					※ 회원탈퇴 시 주의사항 안내문 ※<br><br>
-					회원을 탈퇴 하시면 해당 아이디로는 재가입 할 수 없습니다.<br>
-					탈퇴 시 보유하고 계신 예약 강의와 수강 내역 등 모두 삭제되어,<br>
-					복구가 불가능 하니 신중하게 결정 부탁 드립니다.<br>
-					</p>
-				</div>
-		        <br>
-		        <div>
-			        <input type="checkbox"> ※ 위 내용을 모두 확인하였으며, 이에 동의합니다.<br><br>
-					<input type="reset" value="취소">
-					<input type="submit" value="탈퇴" onClick="if(confirm('정말로 탈퇴하시겠습니까?')){location.href='#.do';}">		
-				</div>
-		    </section>
+	<div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+    <div class="card p-3">
+      <div class="e-navlist e-navlist--active-bg">
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link px-2 active" href="${path}/memberInfo"><span>｜My Page</span></a></li>
+          <li class="nav-item"><a class="nav-link px-2 active" href="${path}/updateMember?mId=${mId}"><span>｜내정보 수정</span></a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="${path}/modifyPwdForm?mId=${mId}"><span>｜비밀번호 변경</span></a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="${path}/deleteMyAccount"><span>｜회원탈퇴</span></a></li>
+         </ul>
+       </div>
+     </div>
+   </div>
+   
+   <div class="col">
+    <div class="row">
+      <div class="col mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="e-profile">
+              <div class="tab-content pt-3">
+              
+<form action=deleteMyAccount method="post">  
+
+<div class="row">
+<div class="col">
+<div class="row">
+<div class="col">
+
+<div class="row">
+	<div class="col">
+		<div style="border: 1px solid grey; padding: 20px 20px 20px 20px">
+		<p>
+		※ 회원탈퇴 시 주의사항 안내문 ※<br><br>
+		회원을 탈퇴 하시면 해당 아이디로는 재가입 할 수 없습니다.<br>
+		탈퇴 시 보유하고 계신 예약 강의와 수강 내역 등 모두 삭제되어,<br>
+		복구가 불가능 하니 신중하게 결정 부탁 드립니다.<br>
+		</p>
+		</div>
+	</div>
+</div>
+<br>
+<input type="checkbox" name="agreement" > ※ 위 내용을 모두 확인하였으며, 이에 동의합니다.<br><br>
+<div class="row">
+	<div class="col">
+		<div class="form-group">
+			<label><b>아이디</b></label>
+			<input class="form-control mb-2" type="text"  name="deleteId" id="deleteId">
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div class="form-group">
+			<label><b>비밀번호</b></label>
+			<input class="form-control mb-2" type="password"  name="deletePwd" id="deletePwd">
+		</div>
+	</div>
+</div>
+
+<input type="text" name="userId" id="userId" value="${mId}" style="visibility:hidden" >
+<input type="text" name="userPwd" id="userPwd" value="${mPwd}" style="visibility:hidden">
+
+<div class="form-row float-right">
+	<button type="submit" class="btn btn-primary btn-lg mb-2" onclick="return deleConfirm();">탈퇴</button>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+                    
+</form>
+
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+	
 	</div>
-	</div>
-        
-<jsp:include page="../footer.jsp" />
+</div>
+
 </body>
 </html>

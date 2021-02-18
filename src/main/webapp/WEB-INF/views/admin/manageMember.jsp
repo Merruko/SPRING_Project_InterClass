@@ -6,10 +6,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
-<!--  All snippets are MIT license http://bootdey.com/license -->
 <title>회원 관리 목록</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <style type="text/css">
@@ -52,7 +51,6 @@
 	tr td {vertical-align:middle; }
 
 </style>
-</head>
 <body>
 <%@include file="../menu.jsp" %>
 <div class="container">
@@ -108,8 +106,8 @@
                           <h5 class="font-medium mb-0">${user.mPhone}</h5>
                       </td>
                       <td>
-                      	<a href="${path}/updateMember?mId=${user.mId}"><button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" ><i class="fa fa-edit"></i> </button></a>
-                        <a href="${path}/deleteMemberByAdmin?mId=${user.mId}"><button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" ><i class="fa fa-trash"></i> </button></a>
+                      	<a href="${path}/updateMemberByAdmin?mId=${user.mId}"><button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" ><i class="fa fa-edit"></i> </button></a>
+                        <a href="${path}/deleteMemberByAdmin?mId=${user.mId}"><button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onclick="return confirm('정말로 삭제하시겠습니까?');" ><i class="fa fa-trash"></i> </button></a>
                       </td>
                     </tr>
                     </c:forEach>

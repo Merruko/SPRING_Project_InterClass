@@ -6,7 +6,7 @@
 	
 	<!-- 아이디중복검사 -->
 	<select id="id" resultType="String">
-	SELECT mId From i_member WHERE mid = #{mId}
+	SELECT MID from member WHERE MID = #{mId}
 	</select>
 	
 	

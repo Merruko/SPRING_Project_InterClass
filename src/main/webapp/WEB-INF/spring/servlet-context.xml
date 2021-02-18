@@ -20,11 +20,14 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-	<context:component-scan base-package="com.spring.proj" />
+	<context:component-scan base-package="com.spring.proj.home" />
+	<context:component-scan base-package="com.spring.board" />
+	<context:component-scan base-package="com.spring.member" />
+	<context:component-scan base-package="com.spring.notice" />
 	<context:component-scan base-package="com.spring.validation" />
-	<beans:bean id="memService" class="com.spring.proj.service.MemberServiceImpl" />
-	<beans:bean id="memDAO" class="com.spring.proj.dao.MemberDAOImpl" />
+	<context:component-scan base-package="com.spring.login" />
+	<beans:bean id="memService" class="com.spring.member.service.MemberServiceImpl" />
+	<beans:bean id="memDAO" class="com.spring.member.dao.MemberDAOImpl" />
 	<beans:bean id="userSVC" class="com.spring.validation.ValidService" />
 	<beans:bean id="userDAO" class="com.spring.validation.ValidDAO" />
 	

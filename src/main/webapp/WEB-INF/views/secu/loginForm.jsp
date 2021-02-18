@@ -5,8 +5,11 @@
 <html>
 <head>
 <meta charset="utf-8">
+<!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
+<!--  All snippets are MIT license http://bootdey.com/license -->
 <title>로그인페이지</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" >
 <style type="text/css">
@@ -79,7 +82,6 @@ p {
     width: 100%;
 }
 </style>
-</head>
 <body>
 <br>
 <br>
@@ -88,7 +90,7 @@ p {
 	</div>
 <hr>
 <br>
-<div class="container">
+<div class="container" style="width: 700px;">
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card-group mb-0">
@@ -134,7 +136,6 @@ p {
       </div>
     </div>
   </div>
-  
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 <script type="text/javascript">

@@ -18,9 +18,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+</head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <style type="text/css">
 	.navbar{
 		margin-bottom:0;
@@ -35,18 +37,14 @@
 		margin-right:50px;
 	}
 </style>
-</head>
 <body>
-
 <nav class="navbar navbar-default">
   	<div class="collapse navbar-collapse" id="myNavbar">
   		<ul class="nav navbar-nav navbar-right">
+  		
 		    <!-- 로그인하지 않은 사용자가 접근했을 때에만 등장 -->
 			<!-- 로그인, 회원가입 -->
 			<sec:authorize access="isAnonymous()">
-				<li>
-					<h5>로그인 해주세요!</h5>
-				</li>
 				<li>
 					<button type="button" class="btn btn-info btn-link" onclick="location.href='<c:url value="/login"/>'" >로그인</button>
 			    </li>
@@ -99,25 +97,26 @@
     <ul class="nav navbar-nav navbar-right">
     	<!-- 모든 사용자에게 오픈 -->
     	<sec:authorize access="isAnonymous()">
-    			<li class="menu"><a href="#">강의정보</a></li>
-      			<li class="menu"><a href='<c:url value='/reservation'/>'>예약하기</a></li>
-     			<li class="menulast"><a href="#">공지사항</a></li>
+    			<li class="menu"><a href='<c:url value='/lecture/list'/>'>강의정보</a></li>
+      			<li class="menu"><a href='<c:url value='/reser/reservation'/>'>예약하기</a></li>
+     			<li class="menulast"><a href='<c:url value='notice/getBoardList'/>'>공지사항</a></li>
      	</sec:authorize>
      	
      	<!-- 관리자에게만 오픈 -->		
     	<sec:authorize access="hasRole('ROLE_ADMIN')">
-    			<li class="menu"><a href="#">강의정보</a></li>
-      			<li class="menu"><a href="#">강의등록</a></li>
-     			<li class="menulast"><a href="#">공지사항</a></li>
+    			<li class="menu"><a href='<c:url value='/lecture/list'/>'>강의정보</a></li>
+      			<li class="menu"><a href='<c:url value='/lecture/writeView'/>'>강의등록</a></li>
+      			<li class="menu"><a href='<c:url value='/reser/adminOrderList'/>'>예약관리</a></li>
+     			<li class="menulast"><a href='<c:url value='/notice/getBoardList'/>'>공지사항</a></li>
     	</sec:authorize>
     	
     	<!-- 로그인한 사용자에게만 오픈 -->
     	<sec:authorize access="hasRole('ROLE_USER')">
-    			<li class="menu"><a href="#">강의정보</a></li>
-      			<li class="menu"><a href='<c:url value='/reservation'/>'>예약하기</a></li>
-      			<li class="menu"><a href="#">나의강의</a></li>
-      			<li class="menu"><a href="#">찜한강의</a></li>
-     			<li class="menulast"><a href="#">공지사항</a></li>
+    			<li class="menu"><a href='<c:url value='/lecture/list'/>'>강의정보</a></li>
+      			<li class="menu"><a href='<c:url value='reser/reservation'/>'>예약하기</a></li>
+      			<li class="menu"><a href='<c:url value='/reser/myLecture'/>'>나의강의</a></li>
+      			<li class="menu"><a href='<c:url value='/lecture/cartList'/>'>찜한강의</a></li>
+     			<li class="menulast"><a href='<c:url value='/notice/getBoardList'/>'>공지사항</a></li>
     	</sec:authorize>
     </ul>
   </div>

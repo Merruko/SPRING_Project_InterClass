@@ -1,93 +1,168 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>내정보</title>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-<style type="text/css">
-	body{margin: auto;}
-	table{width: 500px; border-collapse: collapse;}
-	tr, td{border: 1px solid white; padding: 10px;}
-	input[type="text"],[type="password"] {width: 200px; height: 20px;}
-	input[type="reset"],[type="submit"], button {border: 1px solid #333; border-radius: 5px; padding: 5px 25px; background: orange; text-decoration: none; color: black; font-size: 0.9em; font-weight: bold;}
-	input[type="radio"] {display: none;}
-	p{margin: 0 0 20px; line-height: 1.5;}
-    h1{padding: 20px 0; font-weight: bold; text-align: center;}
-	section{display: none; padding: 20px 0 0; border-top: 1px solid #ddd;}
-	label{display: inline-block; margin: 0 0 -1px; padding: 15px 25px; font-weight: 600; text-align: center; border: 1px solid transparent;}
-    .main{min-width: 320px; max-width: 800px; margin: 0 auto; background: #ffffff;}
-	.button{border: 1px solid #333; border-radius: 5px; padding: 5px 25px; background: orange; text-decoration: none; color: black; font-size: 0.9em; font-weight: bold;}
-	.notice{text-align: center; border: 1px solid; height: 200px; font-size: 15px; line-height: 140px; padding: 50px;}
-	label:hover{color: #2e9cdf; cursor: pointer;}
-	input:checked + label{border: 1px solid #ddd; border-top: 2px solid #2e9cdf; border-bottom: 1px solid #ffffff;}
-	#tab1:checked ~ #content1,
-	#tab2:checked ~ #content2,
-	#tab3:checked ~ #content3,
-	#tab4:checked ~ #content4 {display: block;}     
-</style>
-
+<meta charset="utf-8">
+<title>내정보 수정</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+	body{
+    margin-top:20px;
+    background:#f8f8f8;
+	}
+</style>
 <body>
-	<jsp:include page="../menu.jsp" />
-	
-	<div class="main">
-	
-    <h1>My Page</h1>
-    
-    <jsp:include page="./tab.jsp" />
-    <form action="updateMember" name="memInfoChangeForm" method="post">
-      <div class="tab-content no-border padding-24">
-        <div id="myinfo" class="tab-pane in active">
-          <section id="content1">
-		       <table>
-		       		<tr>
-						<td>아이디</td>
-						<td><input type="text" name="mId" value="${vo.mId}" readonly="readonly" ></td>
-					</tr>
-					<tr>
-						<td>비밀번호</td>
-						<td><input type="password" name="mPwd"></td>
-					</tr>
-					<tr>
-						<td>이름</td>
-						<td><input type="text" name="mName" value="${vo.mName}" ></td>
-					</tr>
-					<tr>
-						<td>성별</td>
-						<td>
-							<select id="gender" name="mGender" >
-								<option value="남성" <c:if test="${vo.mGender == '남성'}">selected</c:if>>남성</option>
-								<option value="여성" <c:if test="${vo.mGender == '여성'}">selected</c:if>>여성</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>생년월일</td>
-						<td><input type="text" name="mBirth" value="${vo.mBirth}" ></td>
-					</tr>
-					<tr>
-						<td>이메일</td>
-						<td><input type="email" name="mEmail" value="${vo.mEmail}" ></td>
-					</tr>
-					<tr>
-						<td>연락처</td>
-						<td><input type="text" name="mPhone" value="${vo.mPhone}" ></td>
-					</tr>
-		       </table>
-		       <div>
-		       <button type="submit" >저장</button>
-		       <button type="button" onclick="location.href='${path}/memberInfo?mId=${vo.mId}'" >취소</button>
-		       </div>
-      	 </section>
+<br>
+	<div class="container text-center" onclick="location.href='<c:url value='/'/>'">
+  			<h1>InterClass</h1>
+	</div>
+<br>
+<hr>
+
+<div class="container" style="width: 800px;">
+<div class="row flex-lg-nowrap">
+  <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+    <div class="card p-3">
+      <div class="e-navlist e-navlist--active-bg">
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link px-2 active" href="${path}/memberInfo"><span>｜My Page</span></a></li>
+          <li class="nav-item"><a class="nav-link px-2 active" href="${path}/updateMember?mId=${vo.mId}"><span>｜내정보 수정</span></a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="${path}/modifyPwdForm?mId=${vo.mId}"><span>｜비밀번호 변경</span></a></li>
+          <li class="nav-item"><a class="nav-link px-2" href="${path}/deleteMyAccount"><span>｜회원탈퇴</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col">
+    <div class="row">
+      <div class="col mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="e-profile">
+              <div class="tab-content pt-3">
+              
+<form:form action="updateMember" method="post" modelAttribute="memberVO">
+
+<div class="row">
+<div class="col">
+<div class="row">
+<div class="col">
+
+
+<div class="row">
+	<div class="col">
+		<div class="form-group">
+			<label><b>이름</b></label>
+			<form:input class="form-control" type="text" path="mId" value="${vo.mId}" />
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<div class="form-group">
+			<label><b>이름</b></label>
+			<form:input class="form-control" type="text" path="mName" value="${vo.mName}" />
+			<div>
+				<spring:hasBindErrors name="memberVO">
+				<c:if test="${erros.hasFieldErros('mName') }" />
+				</spring:hasBindErrors>
+				<form:errors path="mName" style='color:red' />
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="form-group row">
+	<div class="col">
+		<div class="form-group">
+			<label><b>성별</b></label>
+			<form:select class="form-control" path="mGender" id="gender" isChanged="false">
+				<form:option value="남성" selected="${vo.mGender =='남성'? 'selected' : '' }">남성</form:option>
+				<form:option value="여성" selected="${vo.mGender =='여성'? 'selected' : '' }">여성</form:option>
+			</form:select>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<div class="form-group">
+			<label><b>생년월일</b></label>
+			<form:input class="form-control" type="text" path="mBirth" value="${vo.mBirth}" />
+			<div>
+				<spring:hasBindErrors name="memberVO">
+				<c:if test="${erros.hasFieldErros('mBirth') }" />
+				</spring:hasBindErrors>
+				<form:errors path="mBirth" style='color:red' />
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<div class="form-group">
+			<label><b>이메일</b></label>
+			<form:input class="form-control" type="email" path="mEmail" value="${vo.mEmail}" />
+			<div>
+				<spring:hasBindErrors name="memberVO">
+				<c:if test="${erros.hasFieldErros('mEmail') }" />
+				</spring:hasBindErrors>
+				<form:errors path="mEmail" style='color:red' />
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<div class="form-group">
+			<label><b>연락처</b></label>
+			<form:input class="form-control mb-5" type="text" path="mPhone" value="${vo.mPhone}" />
+			<div>
+				<spring:hasBindErrors name="memberVO">
+				<c:if test="${erros.hasFieldErros('mPhone') }" />
+				</spring:hasBindErrors>
+				<form:errors path="mPhone" style='color:red' />
+			</div>
+		</div>
+	</div>
+</div>
+<div>
+    <button type="submit" class="btn btn-primary btn-lg btn-block mb-1" >저장</button>
+    <button type="button" class="btn btn-light btn-lg btn-block mb-1" onclick="location.href='${path}/memberInfo'" >취소</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+                    
+</form:form>
+
+              </div>
+            </div>
+          </div>
         </div>
-      </div> 
-     </form>
-    </div>  
-   
-<jsp:include page="../footer.jsp" />
+      </div>
+
+  </div>
+</div>
+</div>
+</div>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	
+</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <title>index</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <style type="text/css">
 	
 
@@ -41,35 +43,27 @@
 			<div class="col-lg-6">
 				<h3 class="title">인기강의</h3>
 				<table class="table table-hover" id="table">
+					
     				<tbody>
-      					<tr>
-      						<td>강의1</td>
-						</tr>
-      					<tr>
-      						<td>강의2</td>
-						</tr>
-      					<tr>
-      						<td>강의3</td>
-						</tr>
-    				</tbody>
+    					<c:forEach items="${newLecture}" var="newLecture">
+    					<tr>
+    						<td><c:out value="${newLecture.lectureName}"/>
+    					</tr>
+      					</c:forEach>
+					<tbody>
   				</table>
 			</div>
 			<div class="col-lg-6">
 				<h3 class="title">공지사항</h3>
 				<table class="table table-hover" id="table">
     				<tbody>
-      					<tr>
-      						<td>공지1</td>
-						</tr>
-						<tr>
-      						<td>공지2</td>
-						</tr>
-						<tr>
-      						<td>공지3</td>
-						</tr>
-						<tr>
-      						<td>공지4</td>
-						</tr>
+      					<tbody>
+    					<c:forEach items="${newNotice}" var="newNotice">
+    					<tr>
+    						<td><c:out value="${newNotice.title}"/>
+    					</tr>
+      					</c:forEach>
+					<tbody>
     				</tbody>
   				</table>
 			</div>

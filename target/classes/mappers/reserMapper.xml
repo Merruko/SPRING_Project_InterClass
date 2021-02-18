@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reserMapper">
+   <select id="searchNum" resultType="com.spring.board.dao.CartListVO">
+   </select>
+   
+   <!-- 에약하기-->
+   <insert id="reservate" parameterType="com.spring.board.domain.ReservationVO" useGeneratedKeys="true" keyProperty="rNum">
+	    <selectKey keyProperty="rNum" resultType="int" order="BEFORE">
+	    	SELECT R_NUM.NEXTVAL FROM DUAL
+	    </selectKey>
+ 		INSERT INTO RESERVATION(RNUM
+ 							, LECTURENUM
+	   					      , MID 
+	   					      ,	STARTDATE
+	   					      , ORDERDATE
+	   					      )
+	                 VALUES(   #{rNum}
+	                 		  , #{lectureNum}
+	                 		  , #{mId}
+	                 		  , #{startDate}
+	                 		  , SYSDATE
+	                 		  )
+   
+   
+   </insert>
+   <!-- 회원 예약한 강의 조회 -->
+   <select id="myLecture"  resultType="com.spring.board.domain.ReservationVO">
+   			SELECT ROW_NUMBER() OVER(ORDER BY RNUM DESC) AS NUM,
+              	RNUM,LECTURENUM,STARTDATE,ORDERDATE
+             FROM RESERVATION 
+             WHERE MID = #{mId}
+   </select>
+   <select id="myLectureDetail" resultType="com.spring.board.domain.MyLectureVO">
+   		 SELECT
+     		O.RNUM, O.LECTURENUM,D.LECTUREIMAGE,D.LECTURENAME,D.LECTURECONTENT,O.STARTDATE,O.ORDERDATE
+ 		FROM RESERVATION O
+         INNER JOIN LECTURECLASS D
+             ON O.LECTURENUM = D.LECTURENUM
+     WHERE O.RNUM = #{rNum}
+         AND O.MID = #{mId}
+   </select>
+   
+   <!-- 관리자 예약 관리 -->
+   <select id="adminOrderList" resultType="com.spring.board.domain.ReservationVO">
+   		SELECT * FROM RESERVATION ORDER BY RNUM DESC
+   </select>
+   
+  <delete id="complete" parameterType="int">
+  </delete>
+  <delete id="cancel" parameterType="int">
+  		DELETE FROM RESERVATION WHERE RNUM = #{rNum}
+  </delete>
+
+</mapper>

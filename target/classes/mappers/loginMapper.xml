@@ -5,14 +5,14 @@
 <mapper namespace="user">
 
 	<!-- 로그인 -->
-	<select id="selectUserById" resultType="com.spring.proj.login.user.CustomUserDetails">
+	<select id="selectUserById" resultType="com.spring.login.user.CustomUserDetails">
 	<![CDATA[
             SELECT
                 *
             FROM
-                i_member
+                member
             WHERE
-                mId = #{logId}
+                MID = #{logId}
         ]]>
 	</select>
 	
