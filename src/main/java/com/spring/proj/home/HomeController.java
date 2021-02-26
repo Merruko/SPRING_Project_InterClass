@@ -30,14 +30,12 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(NoticeVO board,LectureVO vo,Model model) throws Exception{
+		
 		logger.info("Welcome home! The client locale is .");
 		List<LectureVO> newLecture = service.newLecture(vo);
 		List<NoticeVO> newNotice = service.newNotice(board);
 		model.addAttribute("newLecture",newLecture);
 		model.addAttribute("newNotice",newNotice);
-		
-		
-	
 		
 		return "index";
 	}

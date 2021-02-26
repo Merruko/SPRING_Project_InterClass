@@ -11,7 +11,7 @@ public class ValidService {
 	
 	//아이디 중복검사
 	public boolean checkUserIdExist(String mId) {
-		System.out.println("아이디 중복검사 중(service)");
+		System.out.println("IDダブり検索中 (service)");
 		
 		String result = userDAO.checkId(mId);
 		
@@ -21,4 +21,5 @@ public class ValidService {
 			return false; //null이 아니라면 이미 DB에 존재하는 아이디 --> 중복O 사용불가능(false)
 		}
 	}
+	
 }

@@ -18,11 +18,12 @@ public class LoginController {
 		return "/secu/loginFail";
 	}
 	
-	//접근불가 화면(403error)
+	//접근불가 화면 (403error)
 	@RequestMapping(value="/access_denied")
 	public String accessDenied() throws Exception {
 		return "/secu/access_denied_page";
 	}
 	
 	//로그아웃은 security-context.xml 자동설정되어 있음. path url = "/logout"
+	
 }

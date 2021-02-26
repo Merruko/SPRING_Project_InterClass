@@ -9,4 +9,5 @@ public interface HomeService {
 	
 	public List<LectureVO> newLecture(LectureVO vo) throws Exception;
 	public List<NoticeVO> newNotice(NoticeVO vo) throws Exception;
+	
 }

@@ -3,55 +3,76 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reserMapper">
-   <select id="searchNum" resultType="com.spring.board.dao.CartListVO">
-   </select>
+
+   <select id="searchNum" resultType="com.spring.board.domain.CartListVO"></select>
    
    <!-- 에약하기-->
    <insert id="reservate" parameterType="com.spring.board.domain.ReservationVO" useGeneratedKeys="true" keyProperty="rNum">
 	    <selectKey keyProperty="rNum" resultType="int" order="BEFORE">
-	    	SELECT R_NUM.NEXTVAL FROM DUAL
+	    	SELECT I_R_NUM.NEXTVAL FROM DUAL
 	    </selectKey>
- 		INSERT INTO RESERVATION(RNUM
- 							, LECTURENUM
+	    
+ 		INSERT INTO I_RESERVATION(RNUM
+ 							  , LECTURENUM
 	   					      , MID 
 	   					      ,	STARTDATE
 	   					      , ORDERDATE
+	   					      , ONVALUE
 	   					      )
-	                 VALUES(   #{rNum}
+	                 VALUES(    #{rNum}
 	                 		  , #{lectureNum}
 	                 		  , #{mId}
 	                 		  , #{startDate}
 	                 		  , SYSDATE
+	                 		  , 0
 	                 		  )
-   
-   
+	                 		  
    </insert>
+
    <!-- 회원 예약한 강의 조회 -->
    <select id="myLecture"  resultType="com.spring.board.domain.ReservationVO">
    			SELECT ROW_NUMBER() OVER(ORDER BY RNUM DESC) AS NUM,
               	RNUM,LECTURENUM,STARTDATE,ORDERDATE
-             FROM RESERVATION 
-             WHERE MID = #{mId}
+             FROM I_RESERVATION 
+             WHERE MID = #{mId} AND ONVALUE = 0
    </select>
    <select id="myLectureDetail" resultType="com.spring.board.domain.MyLectureVO">
    		 SELECT
      		O.RNUM, O.LECTURENUM,D.LECTUREIMAGE,D.LECTURENAME,D.LECTURECONTENT,O.STARTDATE,O.ORDERDATE
- 		FROM RESERVATION O
-         INNER JOIN LECTURECLASS D
+ 		 FROM I_RESERVATION O
+         INNER JOIN I_LECTURECLASS D
              ON O.LECTURENUM = D.LECTURENUM
      WHERE O.RNUM = #{rNum}
-         AND O.MID = #{mId}
+         AND O.MID = #{mId} AND ONVALUE = 0
    </select>
    
-   <!-- 관리자 예약 관리 -->
-   <select id="adminOrderList" resultType="com.spring.board.domain.ReservationVO">
-   		SELECT * FROM RESERVATION ORDER BY RNUM DESC
-   </select>
+  <!-- 관리자 예약 관리 -->
+  <select id="adminOrderList" resultType="com.spring.board.domain.ReservationVO">
+   		SELECT * FROM I_RESERVATION
+   		  ORDER BY RNUM DESC
+  </select>
    
-  <delete id="complete" parameterType="int">
+  <!-- 사용자 예약 취소 -->
+  <update id="cancel" parameterType="com.spring.board.domain.ReservationVO">
+  		UPDATE I_RESERVATION SET ONVALUE = 1 WHERE RNUM =#{rNum}
+  </update>
+  
+  <!-- 관리자 예약기록 삭제 -->
+  <delete id ="delete" parameterType="int">
+   						DELETE 
+   						FROM I_RESERVATION
+   						WHERE RNUM = #{rNum}
   </delete>
-  <delete id="cancel" parameterType="int">
-  		DELETE FROM RESERVATION WHERE RNUM = #{rNum}
-  </delete>
+   
+  <!-- 중복 예약 검사 -->
+  <select id="checkReser" resultType="int" parameterType="com.spring.board.domain.ReservationVO">
+ 		SELECT COUNT(*) FROM I_RESERVATION WHERE MID=#{mId} AND LECTURENUM = #{lectureNum} AND ONVALUE = 0
+  </select>
 
+  <!-- 예약 변경 -->
+  <update id="update" parameterType="com.spring.board.domain.ReservationVO">
+ 		UPDATE I_RESERVATION SET STARTDATE=#{startDate} WHERE MID=#{mId} AND LECTURENUM = #{lectureNum}
+  </update>
+  
+  
 </mapper>

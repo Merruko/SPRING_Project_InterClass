@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.spring.notice.domain.NoticeVO;
 
 public class NoticeMapper implements RowMapper<NoticeVO> {
+	
 	public NoticeVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
 		NoticeVO board = new NoticeVO();

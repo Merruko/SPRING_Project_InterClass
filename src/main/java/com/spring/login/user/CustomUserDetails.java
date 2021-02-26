@@ -20,11 +20,9 @@ public class CustomUserDetails implements UserDetails {
 		this.mId = mId;
 	}
 
-
 	public void setmPwd(String mPwd) {
 		this.mPwd = mPwd;
 	}
-
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -32,7 +30,6 @@ public class CustomUserDetails implements UserDetails {
         auth.add(new SimpleGrantedAuthority(authority));
         return auth;
 	}
-	
 
 	public String getAuthority() {
 		return authority;
@@ -53,7 +50,6 @@ public class CustomUserDetails implements UserDetails {
 	public boolean isAccountNonExpired() {
 		return true;
 	}
-
 	
 	//계정이 잠기지 않았는가? 정상-true 잠김-false
 	@Override

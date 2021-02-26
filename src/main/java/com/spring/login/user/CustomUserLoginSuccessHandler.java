@@ -32,8 +32,6 @@ public class CustomUserLoginSuccessHandler implements AuthenticationSuccessHandl
 	@Resource(name="userLoginService")
 	private UserDetailsService userSer;
 	
-	
-	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
@@ -46,8 +44,6 @@ public class CustomUserLoginSuccessHandler implements AuthenticationSuccessHandl
 		
 	}
 	
-	
-	// --------------------------------------------------------------------------------
 	//세션 지우기 메서드
 	protected void clearAuthenticationAttributes(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
@@ -55,22 +51,20 @@ public class CustomUserLoginSuccessHandler implements AuthenticationSuccessHandl
 		session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 	}
 	
-	
-	// --------------------------------------------------------------------------------
 	//Redirect URL 지정 메서드
 	protected void resultRedirectStrategy(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
+		Authentication authentication) throws IOException, ServletException {
 		
-		SavedRequest savedRequest = requestCache.getRequest(request, response);
+			SavedRequest savedRequest = requestCache.getRequest(request, response);
 		
-		if(savedRequest!=null) {
-			log.debug("권한이 필요한 페이지에 접근했을 경우");
-			useSessionUrl(request, response);
-		} else {
-			log.debug("직접 로그인 url로 이동했을 경우");
-			useDefaultUrl(request, response);
-		}
-		
+			if(savedRequest!=null) {
+				log.debug("권한이 필요한 페이지에 접근했을 경우");
+				useSessionUrl(request, response);
+			} else {
+				log.debug("직접 로그인 url로 이동했을 경우");
+				useDefaultUrl(request, response);
+			}
+			
 	}
 	
 	protected void useSessionUrl(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -82,9 +76,7 @@ public class CustomUserLoginSuccessHandler implements AuthenticationSuccessHandl
 	protected void useDefaultUrl(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		redirectStratgy.sendRedirect(request, response, defaultSuccessURL);
 	}
-	
-	
-	// --------------------------------------------------------------------------------
+		
 	public String getLogId() {
 		return logId;
 	}

@@ -9,10 +9,10 @@
 	
 		<!-- SEQ 작업 -->
 		<selectKey keyProperty="mNum" resultType="int" order="BEFORE">
-			SELECT zbf_get_mem('now') FROM DUAL
+			SELECT I_ZBF_GET_MEM('now') FROM DUAL
 		</selectKey>
 	
-	INSERT INTO member
+	INSERT INTO I_member
 	(MNUM, MID, MPWD, MNAME, MGENDER, MBIRTH, MEMAIL, MPHONE)
 	VALUES
 	(#{mNum},#{mId},#{mPwd},#{mName},#{mGender},#{mBirth},#{mEmail},#{mPhone})
@@ -21,25 +21,25 @@
 	
 	<!-- 회원삭제 -->
 	<insert id="delete" parameterType="com.spring.member.domain.MemberVO">
-	DELETE FROM member WHERE MID = #{mId}
+	DELETE FROM I_MEMBER WHERE MID = #{mId}
 	</insert>
 	
 	
 	<!-- 회원목록전체 -->
 	<select id="selectall" resultType="com.spring.member.domain.MemberVO">
-	SELECT * FROM member ORDER BY MNUM ASC
+	SELECT * FROM I_MEMBER ORDER BY MNUM ASC
 	</select>
 	
 	
 	<!-- 회원상세정보 -->
 	<select id="selectOne" resultType="com.spring.member.domain.MemberVO">
-	SELECT * FROM member WHERE MID = #{mId}
+	SELECT * FROM I_MEMBER WHERE MID = #{mId}
 	</select>
 	
 	
 	<!-- 회원정보수정 -->
 	<update id="update" parameterType="com.spring.member.domain.MemberVO">
-	UPDATE member
+	UPDATE I_MEMBER
 	SET MNAME = #{mName},
 		MGENDER = #{mGender},
 		MBIRTH = #{mBirth},
@@ -50,7 +50,7 @@
 	
 	<!-- 회원정보수정 -->
 	<update id="updateByAdmin" parameterType="com.spring.member.domain.MemberVO">
-	UPDATE member
+	UPDATE I_MEMBER
 	SET MNAME = #{mName},
 		MPWD = #{mPwd},
 		MGENDER = #{mGender},
@@ -62,19 +62,28 @@
 	
 	<!-- 비밀번호변경 -->
 	<update id="updatePass" parameterType="com.spring.member.domain.MemberVO">
-	UPDATE member
+	UPDATE I_MEMBER
 	SET MPWD = #{mPwd}
 	WHERE MID = #{mId}
 	</update>
 	
 	<!-- 아이디 찾기 -->
-	<select id="findId" parameterType="String" resultType="String">
-		SELECT MID FROM member WHERE MEMAIL = #{mEmail}
+	<select id="findId" parameterType="java.util.HashMap" resultType="String">
+		SELECT MID FROM I_MEMBER WHERE MNAME = #{u_name} AND MEMAIL = #{u_mail}
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
-	<select id="findPwd" parameterType="String" resultType="String">
-		SELECT MPWD FROM member WHERE MID = #{mId}
+	<select id="findPwd" parameterType="java.util.HashMap" resultType="String">
+		SELECT MPWD FROM I_MEMBER
+		
+		<choose>	
+		<when test="u_phone == null and u_id != null and u_birth != null">
+				WHERE MID LIKE #{u_id} AND MBIRTH LIKE #{u_birth} 
+      	</when>
+		<when test="u_id == null and u_phone != null and u_birth != null  ">
+				WHERE MPHONE LIKE #{u_phone} AND MBIRTH LIKE #{u_birth} 
+      	</when>
+	</choose>
 	</select>
 	
 </mapper>

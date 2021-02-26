@@ -1,21 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>아이디 찾기</title>
-
+<title>ID検索</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" >
 
 <style type="text/css">
-
 body{
     margin-top:20px;
     background:#eee;
@@ -86,9 +86,9 @@ p {
     width: 100%;
 }
 </style>
+
 </head>
 <body>
-
 <br>
 <br>
 	<div class="container text-center" onclick="location.href='<c:url value='/'/>'">
@@ -96,8 +96,8 @@ p {
 	</div>
 <hr>
 <br>
-
-<form action="/findId" method="post">
+<br>
+<form action="/foundId" method="post">
 <div class="container">
 	<div class="row justify-content-center">
       <div class="col-md-8">
@@ -105,16 +105,23 @@ p {
           <div class="card p-4">
             <div class="card-body">
 				<div class="w3-center w3-large w3-margin-top">
-					<h3>아이디 찾기</h3>
+					<h3>ID検索</h3>
+					<br>
+					<h6>お探しのIDの氏名とEmailアドレスを入力してください。</h6>
 				</div>
+				<br>
 				<div>
 					<p>
+						<label>氏名</label>
+						<input class="w3-input" type="text" id="u_name" name="u_name" required>
 						<label>Email</label>
-						<input class="w3-input" type="text" id="email" name="email" required>
+						<input class="w3-input" type="text" id="u_mail" name="u_mail" required>
 					</p>
+				</div>
+				<div>
 					<p class="w3-center">
-						<button type="submit" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-round">찾기</button>
-						<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-margin-bottom w3-round">취소</button>
+						<button type="submit" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-round">検索</button>
+						<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-margin-bottom w3-round">戻る</button>
 					</p>
 				</div>
 			</div>
@@ -124,5 +131,7 @@ p {
 	</div>
 </div>
 </form>
+
 </body>
+<footer style="position:relative; left:0px; bottom:0px; hegith:60px; width:100%;"><jsp:include page="../footer.jsp"></jsp:include></footer>
 </html>

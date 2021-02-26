@@ -2,8 +2,8 @@ package com.spring.paging.util;
 
 public class PagingVO {
 	
-	private int listSize = 10;                //초기값으로 목록개수를 10으로 셋팅
-	private int rangeSize = 10;               //초기값으로 페이지범위를 10으로 셋팅
+	private int listSize = 10;               //초기값으로 목록개수를 10으로 셋팅
+	private int rangeSize = 5;               //초기값으로 페이지범위를 5으로 셋팅
 
 	private int page;		// 현재 페이지
 	private int range;		// 페이지 범위
@@ -15,7 +15,6 @@ public class PagingVO {
 	private boolean prev;	// 이전 페이지 여부
 	private boolean next;	// 다음 페이지 여부
 	
-
 	public int getListSize() {
 		return listSize;
 	}
@@ -105,6 +104,7 @@ public class PagingVO {
 	}
 
 	public void pageInfo(int page, int range, int listCnt) {
+		
 		this.page = page;
 		this.range = range;
 		this.listCnt = listCnt;
@@ -130,6 +130,7 @@ public class PagingVO {
 			this.endPage = this.pageCnt;
 			this.next = false;
 		}
+		
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.spring.board.dao.ReservationDAO;
+import com.spring.board.domain.LectureVO;
 import com.spring.board.domain.MyLectureVO;
 import com.spring.board.domain.ReservationVO;
 
@@ -19,7 +20,6 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public void reservate(ReservationVO reservationVO) throws Exception {
 		dao.reservate(reservationVO);
-		
 	}
 
 	@Override
@@ -30,19 +30,11 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public void cancel(int rNum) throws Exception {
 		dao.cancel(rNum);
-		
 	}
 
 	@Override
 	public void updateReser(ReservationVO reservationVO) throws Exception {
-		
-	}
-
-	
-	@Override
-	public void complete(int cartNum) throws Exception {
-		dao.complete(cartNum);
-		
+		dao.updateReser(reservationVO);
 	}
 
 	@Override
@@ -55,5 +47,14 @@ public class ReservationServiceImpl implements ReservationService{
 		return dao.adminOrderList();
 	}
 
+	@Override
+	public void delete(int rNum) throws Exception {
+		dao.delete(rNum);
+	}
+
+	@Override
+	public int checkReser(ReservationVO reservationVO) throws Exception {
+		return dao.checkReser(reservationVO);
+	}
 
 }

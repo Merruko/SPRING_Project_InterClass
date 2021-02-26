@@ -11,8 +11,6 @@ public class LectureVO {
 	private String lectureImage;  //파일이름
 	private MultipartFile lecsImage; //멀티파트
 	
-	
-	
 	public MultipartFile getLecsImage() {
 		return lecsImage;
 	}
@@ -50,15 +48,11 @@ public class LectureVO {
 		this.lectureImage = lectureImage;
 	}
 	
-	
 	@Override
 	public String toString() {
 		return "LectureVO [lectureNum=" + lectureNum + ", lectureName=" + lectureName + ", lectureContent="
 				+ lectureContent + ", lectureListContent=" + lectureListContent + ", lectureImage=" + lectureImage
 				+ "]";
 	}
-	
-	
-	
 	
 }

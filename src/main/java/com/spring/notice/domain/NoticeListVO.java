@@ -20,4 +20,5 @@ public class NoticeListVO {
 	public void setBoardList(List<NoticeVO> boardList) {
 		this.boardList = boardList;
 	}
+	
 }

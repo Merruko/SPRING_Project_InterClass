@@ -1,5 +1,6 @@
 package com.spring.member.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.spring.member.domain.MemberVO;
@@ -22,7 +23,7 @@ public interface MemberDAO {
 	//5. 회원정보수정(사용자, 비밀번호변경 불가)
 	public void updateMember(MemberVO vo) throws Exception;
 	
-	//5-1. 회원정보수정(관리자, 비밀번호변경까지가능)
+	//5-1. 회원정보수정(관리자, 비밀번호 변경까지 가능)
 	public void updateMemberByAdmin(MemberVO vo) throws Exception;
 	
 	//6. 로그인
@@ -32,14 +33,15 @@ public interface MemberDAO {
 	public void updatePwd(MemberVO vo) throws Exception;
 	
 	//8. 아이디 찾기
-	public String findId(String mEmail) throws Exception;
+	public String findId(HashMap<String, String> hash) throws Exception;
 	
 	//9. 비밀번호 찾기
-	public String findPwd(String mId) throws Exception;
+	public String findPwd(HashMap<String, String> hash) throws Exception;
 	
 	//10. 총 멤버 수
 	public int countAll(SearchVO search) throws Exception;
 		
 	//11. 페이징 처리 멤버 조회
 	public List<MemberVO> selectAll(SearchVO search) throws Exception;
+
 }

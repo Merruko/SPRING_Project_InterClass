@@ -7,9 +7,9 @@
    <!-- 쇼핑몰 글 작성 -->
    <insert id="insert" parameterType="com.spring.board.domain.LectureVO" useGeneratedKeys="true" keyProperty="lectureNum">
 	    <selectKey keyProperty="lectureNum" resultType="int" order="BEFORE">
-	    	SELECT MP_LECTURE_SEQ.NEXTVAL FROM DUAL
+	    	SELECT I_MP_LECTURE_SEQ.NEXTVAL FROM DUAL
 	    </selectKey>
- 		INSERT INTO LECTURECLASS(LECTURENUM
+ 		INSERT INTO I_LECTURECLASS(LECTURENUM
 	   					      , LECTURENAME 
 	   					      , LECTURECONTENT 
 	   					      , LECTURELISTCONTENT
@@ -30,7 +30,7 @@
 	   					      , LECTURENAME
 	   					      , LECTURELISTCONTENT 
 	   					      , LECTUREIMAGE 
-	   					FROM LECTURECLASS
+	   					FROM  I_LECTURECLASS
 	   					ORDER BY LECTURENUM
    </select>
    
@@ -40,7 +40,7 @@
    							  ,LECTURECONTENT
    							  ,LECTURELISTCONTENT
    							  ,LECTUREIMAGE
-   						FROM LECTURECLASS
+   						FROM  I_LECTURECLASS
    						WHERE LECTURENUM=#{lectureNum}
    						
    
@@ -49,58 +49,85 @@
    <select id="selectFileList" parameterType="int" resultType="hashMap">
 	SELECT LECTURENUM,
 		   LECTUREIMAGE
-	  FROM LECTURECLASS
+	 FROM  I_LECTURECLASS
 	 WHERE LECTURENUM = #{lectureNum}
 	  
 	</select>
    
    
    <update id="update" parameterType="com.spring.board.domain.LectureVO">
-   						UPDATE LECTURECLASS set LECTURENAME =#{lectureName} ,
-   										        LECTURECONTENT = #{lectureContent} ,
-   										        LECTURELISTCONTENT = #{lectureListContent} ,  
-   												LECTUREIMAGE= #{lectureImage}
+   						UPDATE I_LECTURECLASS SET LECTURENAME =#{lectureName} ,
+   										      	  LECTURECONTENT = #{lectureContent} ,
+   										          LECTURELISTCONTENT = #{lectureListContent} ,  
+   												  LECTUREIMAGE= #{lectureImage}
    						 WHERE LECTURENUM = #{lectureNum} 
    </update>
    <delete id ="delete" parameterType="int">
    						DELETE 
-   						FROM LECTURECLASS
+   						FROM  I_LECTURECLASS
    						WHERE LECTURENUM = #{lectureNum}
    			
    </delete>
    
    <insert id="insertFile" parameterType="hashMap">
-		UPDATE LECTURECLASS set LECTUREIMAGE =#{lectureImage} 
-		WHERE LECTURENUM = #{lectureNum}
+		UPDATE I_LECTURECLASS SET LECTUREIMAGE =#{lectureImage} 
+		WHERE  LECTURENUM = #{lectureNum}
     </insert>
     
     <!-- 카트 담기 -->
 	<insert id="addCart" parameterType="map">
-	 insert into int_cart (cartNum, mID, lectureNum)
-     values (int_cart_seq.nextval, #{mId}, #{lectureNum})
+	 INSERT INTO I_CART (CARTNUM, MID, LECTURENUM)
+     VALUES (I_INT_CART_SEQ.NEXTVAL, #{mId}, #{lectureNum})
 	</insert>
    
 	<select id="newLecture" resultType="com.spring.board.domain.LectureVO">
 		<![CDATA[
-		SELECT ROWNUM,LECTURENAME FROM(SELECT * FROM LECTURECLASS ORDER BY LECTURENUM DESC) WHERE ROWNUM<=3
+		SELECT ROWNUM,LECTURENAME FROM(SELECT * FROM I_LECTURECLASS ORDER BY LECTURENUM DESC) WHERE ROWNUM<=3
 		]]>
 	</select>
    <!-- 카트 리스트 -->
    
-   <select id = "cartList" resultType="com.spring.board.dao.CartListVO">
-   		 select row_number() OVER(order by c.cartNum DESC) as num,
-                    c.cartNum,c.mId,c.lectureNum , c.addDate,l.lectureName,l.lectureImage
-                    from int_cart c
-                        inner join LECTURECLASS l 
-                        on c.lectureNum = l.lectureNum
-                        where c.mId = #{mId} 
+   <select id = "cartList" resultType="com.spring.board.domain.CartListVO">
+   		 SELECT row_number() OVER(ORDER BY C.CARTNUM DESC) AS NUM,
+                    C.CARTNUM, C.MID, C.LECTURENUM, C.ADDDATE, L.LECTURENAME, L.LECTUREIMAGE
+                    FROM I_CART C
+                         INNER JOIN I_LECTURECLASS L 
+                         ON C.LECTURENUM = L.LECTURENUM
+                         WHERE C.MID= #{mId} 
    
    </select>
    
-      <!-- 카트 삭제 -->
-   		<delete id="deleteCart">
-   			delete int_cart
-   					where cartNum = #{cartNum}
-   						and mId =  #{mId}
-   		</delete>
+   <!-- 카트 삭제 -->
+   <delete id="deleteCart">
+   		DELETE I_CART
+   				WHERE CARTNUM = #{cartNum}
+   				AND MID =  #{mId}
+   	</delete>
+   		
+   	<!--영상 등록 -->
+   	<insert id="insertVideo" parameterType="com.spring.board.domain.VideoVO" useGeneratedKeys="true" keyProperty="videoNum">
+	    <selectKey keyProperty="videoNum" resultType="int" order="BEFORE">
+	    	SELECT I_SEQ_VIDEO.NEXTVAL FROM DUAL
+	    </selectKey>
+ 		INSERT INTO I_LECTUREVIDEO (VIDEONUM
+ 								    LECTURENUM
+ 								    VIDEOID
+	   					      )
+	                 VALUES(    #{videoNum}
+	                 		  , #{lectureNum}
+	                 		  , #{videoId}
+	                 		  )
+   </insert>
+   
+   <!-- 영상 불러오기 -->
+   <select id="videoView" resultType="com.spring.board.domain.VideoVO">
+   		SELECT VIDEOID FROM I_LECTUREVIDEO WHERE LECTURENUM = #{lectureNum}
+   </select>
+   
+   <!-- 카트 체크 -->
+   	<select id="cartCheck" parameterType="map" resultType="com.spring.board.domain.CartListVO">
+		SELECT MID,LECTURENUM FROM I_CART WHERE MID =#{mId} AND LECTURENUM = #{lectureNum} 
+	</select>
+		
+		
 </mapper>

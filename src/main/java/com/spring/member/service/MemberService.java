@@ -1,5 +1,6 @@
 package com.spring.member.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -34,10 +35,10 @@ public interface MemberService {
 	public void modifyPass(MemberVO vo) throws Exception;
 	
 	//8. 아이디 찾기
-	public String findId(HttpServletResponse response, String email) throws Exception;
+	public String findId(HashMap<String, String> hash) throws Exception;
 	
 	//9. 비밀번호 찾기
-	public String findPwd(HttpServletResponse response, String id) throws Exception;
+	public String findPwd(HashMap<String, String> hash) throws Exception;
 	
 	//10. 총 멤버 수
 	public int totalMember(SearchVO search) throws Exception;

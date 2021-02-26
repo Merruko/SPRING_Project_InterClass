@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+
+	<update id="plusCnt" parameterType="int">
+	UPDATE I_NOTICE SET CNT = CNT + 1 WHERE SEQ = #{SEQ}
+	</update>
+	
+</mapper>

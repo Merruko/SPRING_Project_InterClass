@@ -1,6 +1,7 @@
 package com.spring.member.service;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,107 +20,84 @@ public class MemberServiceImpl implements MemberService {
 	//1. 회원가입
 	@Override
 	public void register(MemberVO vo) throws Exception {
-		System.out.println("회원가입 service 시작");
+		System.out.println("会員登録　service　始まり");
 		memDAO.insertMember(vo);
-		System.out.println("회원가입 service 완료");
+		System.out.println("会員登録　service　完了");
 	}
 
 	//2. 회원삭제(탈퇴)
 	@Override
 	public void unregister(MemberVO vo) throws Exception {
-		System.out.println("회원탈퇴 service 시작");
+		System.out.println("会員脱退　service　始まり");
 		memDAO.deleteMember(vo);
-		System.out.println("회원탈퇴 service 완료");
-		
+		System.out.println("会員脱退　service　完了");
 	}
 	
 	//3. 회원전체목록
 	@Override
 	public List<MemberVO> getAllUsers() throws Exception {
-		System.out.println("회원목록 service 시작");
+		System.out.println("会員リスト　service　始まり");
 		List<MemberVO> list = memDAO.selectAll();
-		System.out.println("회원목록 service 완료");
+		System.out.println("会員リスト　service　完了");
 		return list;
 	}
 	
 	//4. 회원상세정보
 	@Override
 	public MemberVO getOneUser(String mId) throws Exception {
-		System.out.println("회원상세조회 service 시작");
+		System.out.println("会員詳細照会　service　始まり");
 		MemberVO vo = memDAO.findById(mId);
-		System.out.println("회원상세조회 service 완료");
+		System.out.println("会員詳細照会　service　完了");
 		return vo;
 	}
 
 	//5. 회원정보수정(사용자, 비밀번호변경 불가)
 	@Override
 	public void modifyInfo(MemberVO vo) throws Exception {
-		System.out.println("회원정보수정 service 시작");
-		memDAO.updateMemberByAdmin(vo);
-		System.out.println("회원정보수정 service 완료");
+		System.out.println("会員情報修正　service　始まり(ユーザー)");
+		memDAO.updateMember(vo);
+		System.out.println("会員情報修正　service　完了(ユーザー)");
 	}
 	
 	//5-1. 회원정보수정(관리자, 비밀번호변경까지가능)
 	@Override
 	public void modifyInfoByAdmin(MemberVO vo) throws Exception {
-		System.out.println("회원정보수정 service 시작");
+		System.out.println("会員情報修正　service　始まり(管理者)");
 		memDAO.updateMemberByAdmin(vo);
-		System.out.println("회원정보수정 service 완료");
+		System.out.println("会員情報修正　service　完了(管理者)");
 	}
 	
 	//6. 로그인
 	@Override
 	public MemberVO login(MemberVO vo) throws Exception {
-		System.out.println("로그인 service 시작");
+		System.out.println("ログイン　service　始まり");
 		MemberVO loginuser = memDAO.login(vo);
-		System.out.println("로그인 service 완료");
+		System.out.println("ログイン　service　完了");
 		return loginuser;
 	}
 	
 	//7. 비밀번호 변경
 	@Override
 	public void modifyPass(MemberVO vo) throws Exception {
-		System.out.println("비밀번호변경 service 시작");
+		System.out.println("パスワード変更　service　始まり");
 		memDAO.updatePwd(vo);
-		System.out.println("비밀번호변경 service 완료");
+		System.out.println("パスワード変更　service　完了");
 	}
 	
 	//8. 아이디 찾기
 	@Override
-	public String findId(HttpServletResponse response, String mEmail) throws Exception {
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		String id = memDAO.findId(mEmail);
-			
-		if (id == null) {
-			out.println("<script>");
-			out.println("alert('가입된 아이디가 없습니다.');");
-			out.println("history.go(-1);");
-			out.println("</script>");
-			out.close();
-			return null;
-		} else {
-			return id;
-		}
+	public String findId(HashMap<String, String> hash) throws Exception {
+		String id = memDAO.findId(hash);
+		return id;
 	}
 	
 	//9. 비밀번호 찾기
 	@Override
-	public String findPwd(HttpServletResponse response, String mId) throws Exception {
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		String pwd = memDAO.findPwd(mId);
-		
-		if (pwd == null) {
-			out.println("<script>");
-			out.println("alert('가입된 아이디가 없습니다.');");
-			out.println("history.go(-1);");
-			out.println("</script>");
-			out.close();
-			return null;
-		} else {
-			return pwd;
-		}
+	public String findPwd(HashMap<String, String> hash) throws Exception {
+		System.out.println("パスワード検索　service　始まり");
+		String pwd = memDAO.findPwd(hash);
+		System.out.println("パスワード検索　service　完了");
+		return pwd;
 	}
 	
 	//10. 총 멤버 수

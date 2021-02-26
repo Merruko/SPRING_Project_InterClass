@@ -3,6 +3,8 @@ package com.spring.notice.service;
 import java.util.List;
 
 import com.spring.notice.domain.NoticeVO;
+import com.spring.paging.util.PagingVO;
+import com.spring.paging.util.SearchVO;
 
 public interface NoticeService {
 	
@@ -19,6 +21,12 @@ public interface NoticeService {
 	NoticeVO getBoard(NoticeVO vo);
 
 	// 글 목록 조회
-	List<NoticeVO> getBoardList(NoticeVO vo);
+	List<NoticeVO> getBoardList(PagingVO pagination);
+	
+	// 조회수 증가
+	public void plusCnt(int seq); 
+	
+	// 총 게시글 개수 확인
+	public int getNoticeListCnt(SearchVO search) throws Exception;
 	
 }

@@ -10,11 +10,10 @@
             SELECT
                 *
             FROM
-                member
+                I_MEMBER
             WHERE
                 MID = #{logId}
         ]]>
 	</select>
-	
 	
 </mapper>

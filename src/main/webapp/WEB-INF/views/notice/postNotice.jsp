@@ -1,39 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>InterClass</title>
+<title>スレッド作成</title>
+</head>
+<body>
+<%@include file="../menu.jsp" %>
+
 <style type="text/css">
 	#container{width: 100%; margin: 0 auto; text-align: center;}
 	table{margin: 0 auto; width: 800px; border-collapse: collapse; text-align: center;}
 	tr, td{border: 1px solid gray; padding: 10px;}
-	h1{padding: 20px 0; font-weight: bold; text-align: center;}
+	h2{padding: 20px 0; text-align: center;}
 	input[type="text"]{width: 100%; height: 20px;}
 	textarea{width: 100%; height: 300px;}
 </style>
-</head>
-<body>
-<%@include file="../menu.jsp" %>
+
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<h1>글 작성</h1>
+	<h2>スレッド作成</h2>
 	<div id="container">
 		<form action="insertBoard" method="post">
 			<table>
 				<tr>
-					<td><input type="text" name="title" placeholder="제목"></td>
+					<td><input type="text" name="title" placeholder="件名"></td>
 				</tr>
 				<tr>
-					<td><input type="text" name="writer" value="관리자" readonly></td>
+					<td><input type="text" name="writer" value="管理者" readonly></td>
 				</tr>
 				<tr>
-					<td><textarea name="content" placeholder="내용"></textarea></td>
+					<td><textarea name="content" placeholder="内容"></textarea></td>
 				</tr>
 
 				<tr>
 					<td>
-					<input type="submit" value="등록">
-					<input type="button" value="뒤로" onclick="location.href='getBoardList'">
+					<input type="submit" value="作成">
+					<input type="button" value="戻る" onclick="location.href='getBoardList'">
 					</td>
 				</tr>
 			</table>
@@ -42,11 +45,12 @@
 </sec:authorize>
 
 <sec:authorize access="hasRole('ROLE_USER')">
-<p>사용할 수 없는 페이지 입니다.
+<p>使用できないページです。
 </sec:authorize>
 <sec:authorize access="isAnonymous()">
-<p>사용할 수 없는 페이지 입니다.
+<p>使用できないページです。
 </sec:authorize>
-<%@include file="../footer.jsp" %>
+
 </body>
+<footer style="position:relative; left:0px; bottom:0px; hegith:60px; width:100%;"><jsp:include page="../footer.jsp"></jsp:include></footer>
 </html>

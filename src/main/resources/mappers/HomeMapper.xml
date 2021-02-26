@@ -4,17 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="HomeMapper">
    
-   
-   
 	<select id="newLecture" resultType="com.spring.board.domain.LectureVO">
 		<![CDATA[
-		SELECT ROWNUM,LECTURENAME FROM(SELECT * FROM LECTURECLASS ORDER BY LECTURENUM DESC) WHERE ROWNUM<=3
+		SELECT ROWNUM,LECTURENAME FROM(SELECT * FROM I_LECTURECLASS ORDER BY LECTURENUM DESC) WHERE ROWNUM<=3
 		]]>
 	</select>
 	
 	<select id="newNotice" resultType="com.spring.notice.domain.NoticeVO">
 		<![CDATA[
-		SELECT ROWNUM,TITLE FROM (SELECT * FROM NOTICE ORDER BY REGDATE DESC) WHERE ROWNUM<=4
+		SELECT ROWNUM,TITLE FROM (SELECT * FROM I_NOTICE ORDER BY REGDATE DESC) WHERE ROWNUM<=4
 		]]>
 	</select>
+	
 </mapper>

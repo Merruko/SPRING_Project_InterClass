@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.notice.domain.NoticeListVO;
 import com.spring.notice.domain.NoticeVO;
 import com.spring.notice.service.NoticeService;
+import com.spring.paging.util.PagingVO;
+import com.spring.paging.util.SearchVO;
 
 @Controller
 @RequestMapping("/notice/*")
@@ -25,17 +28,6 @@ public class NoticeController {
 	@Autowired
 	private NoticeService boardService;
 
-	@RequestMapping("/dataTransform")
-	@ResponseBody
-	public NoticeListVO dataTransform(NoticeVO vo) {
-		vo.setSearchCondition("TITLE");
-		vo.setSearchKeyword("");
-		List<NoticeVO> boardList = boardService.getBoardList(vo);
-		NoticeListVO boardListVO = new NoticeListVO();
-		boardListVO.setBoardList(boardList);
-		return boardListVO;
-	}
-	
 	// 글 등록
 	@GetMapping("/insertBoard")
 	public String signUp(NoticeVO vo) {
@@ -77,21 +69,31 @@ public class NoticeController {
 	@ModelAttribute("conditionMap")
 	public LinkedHashMap<String, String> searchConditionMap() {
 		LinkedHashMap<String, String> conditionMap = new LinkedHashMap<String, String>();
-		conditionMap.put("제목", "TITLE");
-		conditionMap.put("내용", "CONTENT");
+		conditionMap.put("タイトル", "TITLE");
+		conditionMap.put("内容", "CONTENT");
 		return conditionMap;
 	}
 
 	// 글 목록 검색
 	@RequestMapping("/getBoardList")
-	public String getBoardList(NoticeVO vo, Model model) {
-
-		if (vo.getSearchCondition() == null)
-			vo.setSearchCondition("TITLE");
-		if (vo.getSearchKeyword() == null)
-			vo.setSearchKeyword("");
-
-		model.addAttribute("boardList", boardService.getBoardList(vo));
+	public String getBoardList(Model model
+								, @RequestParam(required = false, defaultValue = "1") int page
+								, @RequestParam(required = false, defaultValue = "1") int range
+								, @RequestParam(required = false, defaultValue = "title") String searchType
+								, @RequestParam(required = false) String keyword) throws Exception {
+		
+		SearchVO search = new SearchVO();
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+		
+		//전체 공지사항 개수
+		int listCnt = boardService.getNoticeListCnt(search);
+		
+		search.pageInfo(page, range, listCnt);
+		
+		model.addAttribute("pagination", search);
+		model.addAttribute("boardList", boardService.getBoardList(search));
 		return "/notice/listOfNotice";
 	}
+	
 }

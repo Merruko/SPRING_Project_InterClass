@@ -14,13 +14,12 @@
 	}
 %>
 
-
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+<title>Interclass</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
 </head>
-
 
 <body>
 
@@ -34,30 +33,25 @@
 <!-- admin 로그인 했을 때 사용가능한 페이지-->
 <a href='<c:url value="/admin/page" />'>ADMIN</a>
 
-
 <!-- 사용자명 받아오기 (8~14행)-->
-<h5><%=user %>님, 반갑습니다.</h5>
-
+<h5><%=user %> 様、こんにちは。</h5>
 
 <!-- 로그인 -->
 <sec:authorize access="isAnonymous()">
-    <h5><a href='<c:url value="/login"/>'>LOGIN</a> 로그인 해주세요.</h5>
+    <h5><a href='<c:url value="/login"/>'>ログイン</a> ログインしてください。</h5>
 </sec:authorize>
-
 
 <!-- 로그아웃 -->
 <sec:authorize access="isAuthenticated()">
     <form action="/logout" method="POST">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        <button type="submit">LOGOUT</button>
+        <button type="submit">ログアウト</button>
     </form>
 </sec:authorize>
 
-
 <!-- 회원가입 및 회원목록 불러오기 버튼 -->
-<a href="${path}/signUp"><button type="button">회원가입</button></a>
-<a href="${path}/list"><button type="button">회원전체목록</button></a>
-
+<a href="${path}/signUp"><button type="button">会員登録</button></a>
+<a href="${path}/list"><button type="button">会員リスト</button></a>
 
 </body>
 </html>

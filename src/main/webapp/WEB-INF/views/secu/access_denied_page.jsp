@@ -1,13 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
-<title>403error : 접근 불가 페이지</title>
+
+<title>403error : アクセスできません。</title>
 </head>
+
 <body>
 <%@include file="../menu.jsp" %>
-<p> 접근 권한이 없습니다. 관리자에게 문의하세요.
+<p> アクセス権限がありません。管理者にお問い合わせしてください。
 </body>
+
+<footer style="position:relative; left:0px; bottom:0px; hegith:60px; width:100%;"><jsp:include page="../footer.jsp"></jsp:include></footer>
 </html>

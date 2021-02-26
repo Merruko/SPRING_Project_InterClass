@@ -3,13 +3,16 @@ package com.spring.board.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.board.domain.CartListVO;
+import com.spring.board.domain.CartVO;
 import com.spring.board.domain.LectureVO;
-
-
+import com.spring.board.domain.VideoVO;
 
 public interface LectureDAO {
+	
 	//강의 작성	
 	public void write(LectureVO lectureVO) throws Exception;
+	
 	//강의 목록 조회
 	public List<LectureVO> list() throws Exception;
 	
@@ -23,7 +26,6 @@ public interface LectureDAO {
 	public void delete(int lectureNum) throws Exception;
 	
 	//첨부 파일 업로드
-	
 	public void insertFile(Map<String, Object> map) throws Exception;
 	
 	//첨부파일 조회
@@ -32,12 +34,17 @@ public interface LectureDAO {
 	//카트 담기
 	public void addCart(CartVO cart) throws Exception;
 	
-	public List<LectureVO> newLecture(LectureVO vo) throws Exception;
-	
 	//카트 리스트
 	public List<CartListVO> cartList(String mId) throws Exception;
 	
 	//카트 삭제
-	
 	public void deleteCart(CartVO cart) throws Exception;
+	
+	//영상등록
+	public void insertVideo(VideoVO vo) throws Exception;
+	public VideoVO videoView(int lectureNum) throws Exception;
+	
+	//카트 중복 체크
+	public CartListVO cartCheck(CartListVO vo) throws Exception;
+	
 }

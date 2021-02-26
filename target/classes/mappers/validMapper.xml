@@ -4,10 +4,9 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="validCheck">
 	
-	<!-- 아이디중복검사 -->
+	<!-- 아이디 중복검사 -->
 	<select id="id" resultType="String">
-	SELECT MID from member WHERE MID = #{mId}
+	SELECT MID FROM I_MEMBER WHERE MID = #{mId}
 	</select>
-	
 	
 </mapper>

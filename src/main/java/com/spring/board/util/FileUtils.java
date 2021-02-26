@@ -15,13 +15,14 @@ import com.spring.board.domain.LectureVO;
 
 @Component("fileUtils")
 public class FileUtils {
-	private static final String filePath = "C:\\teamProj\\team3\\src\\main\\webapp\\resources\\upload\\"; // 파일이 저장될 위치
+	
+	private static final String filePath = "C:\\workspace\\SPRING_Project_InterClass\\src\\main\\webapp\\resources\\upload"; // 파일이 저장될 위치
 	
 	public List<Map<String, Object>> parseInsertFileInfo(LectureVO lectureVO, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
 		
 		/*
-			Iterator은 데이터들의 집합체? 에서 컬렉션으로부터 정보를 얻어올 수 있는 인터페이스입니다.
+			Iterator은 데이터들의 집합체? 에서 컬렉션으로부터 정보를 얻어올 수 있는 인터페이스 입니다.
 			List나 배열은 순차적으로 데이터의 접근이 가능하지만, Map등의 클래스들은 순차적으로 접근할 수가 없습니다.
 			Iterator을 이용하여 Map에 있는 데이터들을 while문을 이용하여 순차적으로 접근합니다.
 		*/
@@ -29,11 +30,8 @@ public class FileUtils {
 		Iterator<String> iterator = mpRequest.getFileNames();
 		
 		MultipartFile multipartFile = null;
-//		String originalFileName = null;
-//		String originalFileExtension = null;
-//		String storedFileName = null;
 		
-		String lectureImage = null; //원래이름
+		String lectureImage = null; // 원래이름
 		String lectureImageExtension = null;
 		String lecsImage  = null;  // 나중이름
 		
@@ -57,10 +55,8 @@ public class FileUtils {
 				file = new File(filePath + lectureImage);
 				multipartFile.transferTo(file);
 				listMap = new HashMap<String, Object>();
-//				listMap.put("LECTURENUM", lectureNum);
 				listMap.put("LECTUREIMAGE", lectureImage);
 				listMap.put("LECSIMAGE", lecsImage);
-//				listMap.put("FILE_SIZE", multipartFile.getSize());
 				list.add(listMap);
 			}
 		}
@@ -70,4 +66,5 @@ public class FileUtils {
 	public static String getRandomString() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
+	
 }

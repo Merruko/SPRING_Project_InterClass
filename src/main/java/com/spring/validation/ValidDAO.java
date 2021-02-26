@@ -14,7 +14,8 @@ public class ValidDAO {
 	//아이디 중복검사
 	public String checkId(String id) {
 		String id_ck = sql.selectOne("validCheck.id", id);
-		System.out.println("아이디 중복검사 중(dao)");
+		System.out.println("IDダブり検索中 (dao)");
 		return id_ck;
 	}
+	
 }

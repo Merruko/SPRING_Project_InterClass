@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.spring.board.domain.LectureVO;
 import com.spring.board.domain.MyLectureVO;
 import com.spring.board.domain.ReservationVO;
 
@@ -19,29 +20,16 @@ public class ReservationDAOImpl implements ReservationDAO{
 	@Override
 	public void reservate(ReservationVO reservationVO) throws Exception {
 		sqlSession.insert("reserMapper.reservate",reservationVO);
-		
 	}
-
-
 
 	@Override
 	public void cancel(int rNum) throws Exception {
-		sqlSession.delete("reserMapper.cancel",rNum);
-		
+		sqlSession.update("reserMapper.cancel",rNum);
 	}
 
 	@Override
 	public void updateReser(ReservationVO reservationVO) throws Exception {
-		
-		
-	}
-
-	
-
-	@Override
-	public void complete(int cartNum) throws Exception {
-		sqlSession.delete("reserMapper.complete",cartNum);
-		
+		sqlSession.update("reserMapper.update",reservationVO);
 	}
 
 	@Override
@@ -49,21 +37,24 @@ public class ReservationDAOImpl implements ReservationDAO{
 		return sqlSession.selectList("reserMapper.myLecture",mId);
 	}
 
-
-
 	@Override
 	public List<MyLectureVO> myLectureDetail(ReservationVO reservationVO) throws Exception {
 		return sqlSession.selectList("reserMapper.myLectureDetail",reservationVO);
 	}
-
-
 
 	@Override
 	public List<ReservationVO> adminOrderList() throws Exception {
 		return sqlSession.selectList("reserMapper.adminOrderList");
 	}
 
+	@Override
+	public void delete(int rNum) throws Exception {
+		sqlSession.delete("reserMapper.delete",rNum);
+	}
 
-	
+	@Override
+	public int checkReser(ReservationVO reservationVO) throws Exception {
+		return sqlSession.selectOne("reserMapper.checkReser",reservationVO);
+	}
 
 }

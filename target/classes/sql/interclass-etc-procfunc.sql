@@ -1,13 +1,4 @@
-CREATE SEQUENCE SEQ_MEM
-START WITH 1
-MAXVALUE 999
-MINVALUE 1
-CYCLE
-CACHE 10
-NOORDER
-;
-
-CREATE OR REPLACE PROCEDURE SZP_MEM_RESET(SEQ_NAME IN VARCHAR2)
+CREATE OR REPLACE PROCEDURE I_SZP_MEM_RESET(SEQ_NAME IN VARCHAR2)
 IS
     L_VAL NUMBER;
 BEGIN
@@ -22,8 +13,9 @@ BEGIN
  
 END;
 
-CREATE OR REPLACE FUNCTION ZBF_GET_MEM(
-    p_type in varchar2
+
+CREATE OR REPLACE FUNCTION I_ZBF_GET_MEM(
+    p_type IN VARCHAR2
 ) RETURN VARCHAR2
 AS
      v_returnValue VARCHAR2(180);
@@ -31,9 +23,9 @@ BEGIN
  
     BEGIN
  
-        select TO_CHAR(SYSDATE, 'YYMMDD') || LPAD(SEQ_MEM.nextval, 3, 0)
-          into v_returnValue
-          from dual;
+          SELECT TO_CHAR(SYSDATE, 'YYMMDD') || LPAD(I_SEQ_MEM.nextval, 3, 0)
+          INTO v_returnValue
+          FROM dual;
  
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
@@ -46,5 +38,4 @@ BEGIN
 END;
 
 
-//위의 쿼리 실행완료 후 아래 쿼리 실행 정상작동확인바람
-SELECT ZBF_GET_MEM('now') from DUAL;
+SELECT I_ZBF_GET_MEM('now') FROM DUAL;

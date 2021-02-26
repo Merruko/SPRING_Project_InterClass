@@ -2,15 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>회원 관리 목록</title>
+<title>会員管理リスト</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
 <style type="text/css">
 	body{
 	    background: #edf1f5;
@@ -49,9 +52,10 @@
 	}
 	
 	tr td {vertical-align:middle; }
-
 </style>
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <script>
 //이전 버튼 이벤트
 function fn_prev(page, range, rangeSize, searchType, keyword) {
@@ -64,6 +68,7 @@ function fn_prev(page, range, rangeSize, searchType, keyword) {
 	url = url + "&keyword=" + keyword;
 	location.href = url;
 }
+
 //페이지 번호 클릭
 function fn_pagination(page, range, rangeSize, searchType, keyword) {
 	var url = "${pageContext.request.contextPath}/listMemberAll";
@@ -96,12 +101,13 @@ $(document).on('click', '#btnSearch', function(e){
 	console.log(url);
 });	
 </script>
+
 <body>
 <%@include file="../menu.jsp" %>
+<br>
+<br>
+<br>
 <div class="container">
-<br>
-<br>
-<br>
 <div class="row">
 	<div class="col-lg-5 card-margin" style="float:right">
 	    <div class="card search-form">
@@ -111,9 +117,9 @@ $(document).on('click', '#btnSearch', function(e){
 	                        <div class="row no-gutters">
 	                            <div class="col-lg-4 col-md-3 col-sm-12 p-0">
 	                                <select class="form-control" name="searchType" id="searchType">
-	                                    <option value="memId">아이디</option>
-										<option value="name">이름</option>
-										<option value="birth">생년월일</option>
+	                                    <option value="memId">ID</option>
+										<option value="name">氏名</option>
+										<option value="birth">生年月日</option>
 	                                </select>
 	                            </div>
 	                            <div>
@@ -121,7 +127,7 @@ $(document).on('click', '#btnSearch', function(e){
 	                                <input type="text" placeholder="Search..." class="form-control" name="keyword" id="keyword" value="${pagination.keyword}">
 	                            </div>
 	                            <div class="col-lg-1 col-md-3 col-sm-12 input-group-append">
-	                               <button class="btn btn-primary" name="btnSearch" id="btnSearch">검색</button>
+	                               <button class="btn btn-primary" name="btnSearch" id="btnSearch">検索</button>
 	                            </div>
 	                            <div class="col-lg-1 col-md-3 col-sm-12">
 	                            </div>
@@ -137,21 +143,21 @@ $(document).on('click', '#btnSearch', function(e){
     <div class="col-md-12">
         <div class="card">
             <div class="card-body" onclick="location.href='<c:url value='/listMemberAll'/>'">
-                <h3 class="card-title text-uppercase mb-0">회원 관리 목록</h3>
+                <h3 class="card-title text-uppercase mb-0">会員管理リスト</h3>
 				<br>            
             </div>
             <div class="table-responsive">
                 <table class="table no-wrap user-table mb-0">
                   <thead>
                     <tr>
-                      <th scope="col" class="border-1 text-uppercase font-medium">no.</th>
-                      <th scope="col" class="border-1 text-uppercase font-medium">아이디</th>
-                      <th scope="col" class="border-1 text-uppercase font-medium">비밀번호</th>
-                      <th scope="col" class="border-1 text-uppercase font-medium">이름</th>
-                      <th scope="col" class="border-1 text-uppercase font-medium">성별</th>
-                      <th scope="col" class="border-1 text-uppercase font-medium">생일</th>
-                      <th scope="col" class="border-1 text-uppercase font-medium">이메일</th>
-                      <th scope="col" class="border-1 text-uppercase font-medium">전화번호</th>
+                      <th scope="col" class="border-1 text-uppercase font-medium">No.</th>
+                      <th scope="col" class="border-1 text-uppercase font-medium">ID</th>
+                      <th scope="col" class="border-1 text-uppercase font-medium">パスワード</th>
+                      <th scope="col" class="border-1 text-uppercase font-medium">氏名</th>
+                      <th scope="col" class="border-1 text-uppercase font-medium">性別</th>
+                      <th scope="col" class="border-1 text-uppercase font-medium">生年月日</th>
+                      <th scope="col" class="border-1 text-uppercase font-medium">Email</th>
+                      <th scope="col" class="border-1 text-uppercase font-medium">TEL</th>
                       <th scope="col" class="border-1 text-uppercase font-medium"></th>
                     </tr>
                   </thead>
@@ -184,7 +190,7 @@ $(document).on('click', '#btnSearch', function(e){
                       </td>
                       <td>
                       	<a href="${path}/updateMemberByAdmin?mId=${user.mId}"><button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" ><i class="fa fa-edit"></i> </button></a>
-                        <a href="${path}/deleteMemberByAdmin?mId=${user.mId}"><button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onclick="return confirm('정말로 삭제하시겠습니까?');" ><i class="fa fa-trash"></i> </button></a>
+                        <a href="${path}/deleteMemberByAdmin?mId=${user.mId}"><button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onclick="return confirm('本当に削除しますか？');" ><i class="fa fa-trash"></i></button></a>
                       </td>
                     </tr>
                     </c:forEach>
@@ -212,7 +218,7 @@ $(document).on('click', '#btnSearch', function(e){
 		</c:if>
 	</ul>
 </div>
-
+<footer style="position:relative; left:0px; bottom:0px; hegith:60px; width:100%;"><jsp:include page="../footer.jsp"></jsp:include></footer>
 
 </div>
 </body>

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,20 +14,28 @@
 		$("#loginBtn").click(function(){
 			location.href='<c:url value="/login"/>';
 		})
+		$("#findPassBtn").click(function(){
+			location.href='<c:url value="/findPwd"/>';
+		})
 	})
+	
+	var msg = '${msg}';
+	if (msg != '') {
+       alert(msg);
+		history.go(-1);
+	}
 </script>
 
-<title>아이디 찾기 결과</title>
-
+<title>ID検索結果</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" >
 
 <style type="text/css">
-
 body{
     margin-top:20px;
     background:#eee;
@@ -78,6 +87,7 @@ body{
         width: 100%;
     }
 }
+
 .text-muted {
     color: #9faecb !important;
 }
@@ -96,9 +106,9 @@ p {
     width: 100%;
 }
 </style>
+
 </head>
 <body>
-
 <br>
 <br>
 	<div class="container text-center" onclick="location.href='<c:url value='/'/>'">
@@ -106,7 +116,7 @@ p {
 	</div>
 <hr>
 <br>
-
+<br>
 <form action="/findId" method="post">
 <div class="container">
 	<div class="row justify-content-center">
@@ -114,27 +124,29 @@ p {
         <div class="card-group mb-0">
           <div class="card p-4">
             <div class="card-body">
+            <c:if test="${mId != null}">
 				<div class="w3-center w3-large w3-margin-top">
-					<h3>당신의 아이디는</h3>
+					<h4>${mName} 様のIDは下記の通りです。</h4>
 					<br>
 				</div>
-				<div>
 				
+				<div class="w3-center w3-large w3-margin-top">
 					<p align="center">
-					<strong>${fn:substring(mId, 0, 4)}
+					<h2><strong>${fn:substring(mId, 0, 4)}
 					<c:forEach begin="1" end="${fn:length(mId)-4}">
 							*
 					</c:forEach>
-					</strong>
+					</strong></h2>
 					<br>
 					<br>
-					</p>
 					
 					<p class="w3-center">
-						<button type="button" id=loginBtn class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-round">로그인</button>
-						<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-margin-bottom w3-round">뒤로</button>
+						<button type="button" id="findPassBtn" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-round">パスワード検索</button>
+						<button type="button" id="loginBtn" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-round">ログイン</button>
+						<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-blue w3-ripple w3-margin-top w3-margin-bottom w3-round">戻る</button>
 					</p>
 				</div>
+			</c:if>	
 			</div>
 		  </div>
 		</div>
@@ -142,5 +154,7 @@ p {
 	</div>
 </div>
 </form>
+
 </body>
+<footer style="position:relative; left:0px; bottom:0px; hegith:60px; width:100%;"><jsp:include page="../footer.jsp"></jsp:include></footer>
 </html>

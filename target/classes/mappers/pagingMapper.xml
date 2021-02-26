@@ -4,9 +4,9 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="paging">
 
-	<!-- 총 게시글 갯수 출력 -->
+	<!-- 총 멤버 수 출력 -->
 	<select id="countMember" resultType="int">
-	SELECT COUNT(*) AS listCnt FROM member
+	SELECT COUNT(*) AS listCnt FROM I_MEMBER
 
 	<choose>	
 		<when test="keyword != null and keyword != '' ">
@@ -23,14 +23,14 @@
 	</choose>
 	</select>
 	
-	<!-- 페이징 처리 후 게시글 조회 -->
+	<!-- 페이징 처리 후 회원목록 조회 -->
 	<select id="selectMemberAll" resultType="com.spring.member.domain.MemberVO">
 	SELECT * 
 		FROM (
 			SELECT ROWNUM RN, A.* 
 				FROM (
 						SELECT * 
-						FROM member 
+						FROM I_MEMBER
 						
 						<choose>
 							<when test="searchType=='memId' and keyword != null and keyword != '' ">
@@ -45,6 +45,47 @@
 						</choose>	
 						
 						ORDER BY MNUM ASC 
+						) A
+				)
+				
+		WHERE RN BETWEEN #{startList} +1 AND #{startList} + #{listSize} 
+				
+	</select>
+	
+	<!-- 총 공지사항 갯수 출력 -->
+	<select id="countNotice" resultType="int">
+	SELECT COUNT(*) AS listCnt FROM I_NOTICE
+	<choose>	
+		<when test="keyword != null and keyword != '' ">
+			<if test="searchType=='title'">
+				WHERE TITLE like #{keyword}
+			</if>
+			<if test="searchType=='content'">
+				WHERE CONTENT like #{keyword}
+			</if>
+      	</when>
+	</choose>
+	</select>
+	
+	<!-- 페이징 처리 후 공지사항 목록 조회 -->
+	<select id="selectNoticeAll" resultType="com.spring.notice.domain.NoticeVO">
+	SELECT * 
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT * 
+						FROM I_NOTICE
+						
+						<choose>
+							<when test="searchType=='title' and keyword != null and keyword != '' ">
+								WHERE TITLE like #{keyword} 
+							</when>
+							<when test="searchType=='content' and keyword != null and keyword != '' ">
+								WHERE CONTENT like #{keyword} 
+							</when>
+						</choose>	
+						
+						ORDER BY SEQ DESC 
 						) A
 				)
 				
